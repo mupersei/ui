@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Claude Code local settings
+.claude/
+
+# Build output - dist는 포함 (GitHub 직접 설치 방식)
+# dist/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Test
+coverage/
+
+# TypeScript cache
+*.tsbuildinfo
+
+package-lock.json
