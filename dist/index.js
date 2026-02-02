@@ -383,6 +383,94 @@ var Separator2 = React4__namespace.forwardRef(({ className, orientation = "horiz
   }
 ));
 Separator2.displayName = SeparatorPrimitive__namespace.Root.displayName;
+var SearchBar = React4__namespace.forwardRef(
+  ({ value, onChange, placeholder = "\uAC80\uC0C9...", className }, ref) => {
+    return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn("relative", className), role: "search", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(lucideReact.Search, { className: "absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground", "aria-hidden": "true" }),
+      /* @__PURE__ */ jsxRuntime.jsx(
+        Input,
+        {
+          ref,
+          type: "search",
+          placeholder,
+          className: "pl-8 h-10 w-full",
+          value,
+          onChange: (e) => onChange(e.target.value),
+          "aria-label": placeholder
+        }
+      )
+    ] });
+  }
+);
+SearchBar.displayName = "SearchBar";
+var ViewToggle = React4__namespace.forwardRef(
+  ({ viewMode, onViewModeChange, gridLabel = "\uADF8\uB9AC\uB4DC \uBDF0", listLabel = "\uB9AC\uC2A4\uD2B8 \uBDF0", className }, ref) => {
+    return /* @__PURE__ */ jsxRuntime.jsxs("div", { ref, className: cn("flex items-center border rounded-md", className), role: "group", "aria-label": "\uBDF0 \uBAA8\uB4DC \uC120\uD0DD", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(
+        Button,
+        {
+          variant: viewMode === "grid" ? "default" : "ghost",
+          size: "icon",
+          onClick: () => onViewModeChange("grid"),
+          className: "rounded-none rounded-l-md h-10 w-10",
+          "aria-label": gridLabel,
+          "aria-pressed": viewMode === "grid",
+          children: /* @__PURE__ */ jsxRuntime.jsx(lucideReact.Grid3X3, { className: "h-4 w-4", "aria-hidden": "true" })
+        }
+      ),
+      /* @__PURE__ */ jsxRuntime.jsx(
+        Button,
+        {
+          variant: viewMode === "list" ? "default" : "ghost",
+          size: "icon",
+          onClick: () => onViewModeChange("list"),
+          className: "rounded-none rounded-r-md h-10 w-10",
+          "aria-label": listLabel,
+          "aria-pressed": viewMode === "list",
+          children: /* @__PURE__ */ jsxRuntime.jsx(lucideReact.LayoutGrid, { className: "h-4 w-4", "aria-hidden": "true" })
+        }
+      )
+    ] });
+  }
+);
+ViewToggle.displayName = "ViewToggle";
+var defaultLanguages = [
+  { code: "ko", label: "\uD55C\uAD6D\uC5B4" },
+  { code: "en", label: "English" }
+];
+var LanguageSelector = React4__namespace.forwardRef(
+  ({ currentLocale, onLocaleChange, languages = defaultLanguages, className }, ref) => {
+    const currentLanguage = languages.find((lang) => lang.code === currentLocale);
+    return /* @__PURE__ */ jsxRuntime.jsxs(DropdownMenu, { children: [
+      /* @__PURE__ */ jsxRuntime.jsx(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ jsxRuntime.jsxs(
+        Button,
+        {
+          ref,
+          variant: "outline",
+          size: "sm",
+          className: cn("h-10 flex items-center gap-1", className),
+          children: [
+            /* @__PURE__ */ jsxRuntime.jsx(lucideReact.Globe, { className: "h-4 w-4" }),
+            /* @__PURE__ */ jsxRuntime.jsx("span", { children: currentLanguage?.label || "\uC5B8\uC5B4" })
+          ]
+        }
+      ) }),
+      /* @__PURE__ */ jsxRuntime.jsx(DropdownMenuContent, { align: "end", children: languages.map((lang) => /* @__PURE__ */ jsxRuntime.jsx(
+        DropdownMenuItem,
+        {
+          onClick: () => onLocaleChange(lang.code),
+          className: cn(
+            "cursor-pointer",
+            currentLocale === lang.code && "bg-accent"
+          ),
+          children: lang.label
+        },
+        lang.code
+      )) })
+    ] });
+  }
+);
+LanguageSelector.displayName = "LanguageSelector";
 var Card = React4__namespace.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
   "div",
   {
@@ -436,6 +524,162 @@ var CardFooter = React4__namespace.forwardRef(({ className, ...props }, ref) => 
   }
 ));
 CardFooter.displayName = "CardFooter";
+var Sidebar = React4__namespace.forwardRef(
+  ({
+    categories,
+    activeCategory,
+    onCategoryChange,
+    categoryTitle = "\uCE74\uD14C\uACE0\uB9AC",
+    onFilterClick,
+    filterLabel = "\uD544\uD130",
+    onHelpClick,
+    helpLabel = "\uB3C4\uC6C0\uB9D0",
+    className
+  }, ref) => {
+    return /* @__PURE__ */ jsxRuntime.jsx(
+      "aside",
+      {
+        ref,
+        className: cn("w-56 shrink-0", className),
+        "aria-label": "\uCE74\uD14C\uACE0\uB9AC \uB124\uBE44\uAC8C\uC774\uC158",
+        children: /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "bg-card rounded-lg border shadow-sm p-4", children: [
+          /* @__PURE__ */ jsxRuntime.jsx("h3", { id: "sidebar-category-heading", className: "font-medium mb-3 text-sm text-muted-foreground", children: categoryTitle }),
+          /* @__PURE__ */ jsxRuntime.jsx("nav", { className: "space-y-1", "aria-labelledby": "sidebar-category-heading", children: categories.map((category) => /* @__PURE__ */ jsxRuntime.jsx(
+            Button,
+            {
+              variant: activeCategory === category.id ? "default" : "ghost",
+              className: "w-full justify-start text-left",
+              onClick: () => onCategoryChange(category.id),
+              "aria-current": activeCategory === category.id ? "page" : void 0,
+              children: category.label
+            },
+            category.id
+          )) }),
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "mt-6 pt-4 border-t", children: [
+            onFilterClick && /* @__PURE__ */ jsxRuntime.jsxs(
+              Button,
+              {
+                variant: "outline",
+                size: "sm",
+                className: "w-full h-10 mb-2",
+                onClick: onFilterClick,
+                children: [
+                  /* @__PURE__ */ jsxRuntime.jsx(lucideReact.ListFilter, { className: "h-4 w-4 mr-2", "aria-hidden": "true" }),
+                  filterLabel
+                ]
+              }
+            ),
+            onHelpClick && /* @__PURE__ */ jsxRuntime.jsx(
+              Button,
+              {
+                variant: "outline",
+                size: "sm",
+                className: "w-full h-10",
+                onClick: onHelpClick,
+                children: helpLabel
+              }
+            )
+          ] })
+        ] })
+      }
+    );
+  }
+);
+Sidebar.displayName = "Sidebar";
+var MobileMenu = React4__namespace.forwardRef(
+  ({
+    categories,
+    activeCategory,
+    onCategoryChange,
+    menuTitle = "\uBA54\uB274",
+    menuDescription = "\uCE74\uD14C\uACE0\uB9AC \uBC0F \uBA54\uB274 \uC635\uC158\uC744 \uC120\uD0DD\uD558\uC138\uC694",
+    menuButtonLabel = "\uBA54\uB274 \uC5F4\uAE30",
+    categoryTitle = "\uCE74\uD14C\uACE0\uB9AC",
+    searchValue = "",
+    onSearchChange,
+    searchPlaceholder = "\uAC80\uC0C9...",
+    onFilterClick,
+    filterLabel = "\uD544\uD130",
+    onHelpClick,
+    helpLabel = "\uB3C4\uC6C0\uB9D0",
+    className
+  }, ref) => {
+    const [open, setOpen] = React4__namespace.useState(false);
+    const handleCategoryChange = (categoryId) => {
+      onCategoryChange(categoryId);
+      setOpen(false);
+    };
+    return /* @__PURE__ */ jsxRuntime.jsxs(Sheet, { open, onOpenChange: setOpen, children: [
+      /* @__PURE__ */ jsxRuntime.jsx(SheetTrigger, { asChild: true, children: /* @__PURE__ */ jsxRuntime.jsx(
+        Button,
+        {
+          ref,
+          variant: "outline",
+          size: "icon",
+          className: cn("h-10 w-10", className),
+          "aria-label": menuButtonLabel,
+          children: /* @__PURE__ */ jsxRuntime.jsx(lucideReact.Menu, { className: "h-4 w-4" })
+        }
+      ) }),
+      /* @__PURE__ */ jsxRuntime.jsxs(SheetContent, { side: "right", className: "w-[80%] sm:w-[350px]", children: [
+        /* @__PURE__ */ jsxRuntime.jsxs(SheetHeader, { children: [
+          /* @__PURE__ */ jsxRuntime.jsx(SheetTitle, { children: menuTitle }),
+          /* @__PURE__ */ jsxRuntime.jsx(SheetDescription, { className: "sr-only", children: menuDescription })
+        ] }),
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "py-4 space-y-6", children: [
+          onSearchChange && /* @__PURE__ */ jsxRuntime.jsx(
+            SearchBar,
+            {
+              value: searchValue,
+              onChange: onSearchChange,
+              placeholder: searchPlaceholder,
+              className: "w-full"
+            }
+          ),
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { children: [
+            /* @__PURE__ */ jsxRuntime.jsx("h3", { className: "font-medium mb-3 text-sm text-muted-foreground", children: categoryTitle }),
+            /* @__PURE__ */ jsxRuntime.jsx("nav", { className: "space-y-1", children: categories.map((category) => /* @__PURE__ */ jsxRuntime.jsx(
+              Button,
+              {
+                variant: activeCategory === category.id ? "default" : "ghost",
+                className: "w-full justify-start text-left",
+                onClick: () => handleCategoryChange(category.id),
+                children: category.label
+              },
+              category.id
+            )) })
+          ] }),
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "pt-4 border-t space-y-2", children: [
+            onFilterClick && /* @__PURE__ */ jsxRuntime.jsxs(
+              Button,
+              {
+                variant: "outline",
+                size: "sm",
+                className: "w-full h-10",
+                onClick: onFilterClick,
+                children: [
+                  /* @__PURE__ */ jsxRuntime.jsx(lucideReact.ListFilter, { className: "h-4 w-4 mr-2" }),
+                  filterLabel
+                ]
+              }
+            ),
+            onHelpClick && /* @__PURE__ */ jsxRuntime.jsx(
+              Button,
+              {
+                variant: "outline",
+                size: "sm",
+                className: "w-full h-10",
+                onClick: onHelpClick,
+                children: helpLabel
+              }
+            )
+          ] })
+        ] })
+      ] })
+    ] });
+  }
+);
+MobileMenu.displayName = "MobileMenu";
 
 exports.Badge = Badge;
 exports.Button = Button;
@@ -471,8 +715,11 @@ exports.DropdownMenuSubContent = DropdownMenuSubContent;
 exports.DropdownMenuSubTrigger = DropdownMenuSubTrigger;
 exports.DropdownMenuTrigger = DropdownMenuTrigger;
 exports.Input = Input;
+exports.LanguageSelector = LanguageSelector;
+exports.MobileMenu = MobileMenu;
 exports.ScrollArea = ScrollArea;
 exports.ScrollBar = ScrollBar;
+exports.SearchBar = SearchBar;
 exports.Separator = Separator2;
 exports.Sheet = Sheet;
 exports.SheetClose = SheetClose;
@@ -484,6 +731,8 @@ exports.SheetOverlay = SheetOverlay;
 exports.SheetPortal = SheetPortal;
 exports.SheetTitle = SheetTitle;
 exports.SheetTrigger = SheetTrigger;
+exports.Sidebar = Sidebar;
+exports.ViewToggle = ViewToggle;
 exports.badgeVariants = badgeVariants;
 exports.buttonVariants = buttonVariants;
 exports.cn = cn;

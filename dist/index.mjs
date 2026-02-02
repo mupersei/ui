@@ -5,7 +5,7 @@ import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { jsx, jsxs } from 'react/jsx-runtime';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { X, ChevronRight, Check, Circle } from 'lucide-react';
+import { X, ChevronRight, Check, Circle, Search, Grid3X3, LayoutGrid, Globe, ListFilter, Menu } from 'lucide-react';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
 import * as SeparatorPrimitive from '@radix-ui/react-separator';
@@ -357,6 +357,94 @@ var Separator2 = React4.forwardRef(({ className, orientation = "horizontal", dec
   }
 ));
 Separator2.displayName = SeparatorPrimitive.Root.displayName;
+var SearchBar = React4.forwardRef(
+  ({ value, onChange, placeholder = "\uAC80\uC0C9...", className }, ref) => {
+    return /* @__PURE__ */ jsxs("div", { className: cn("relative", className), role: "search", children: [
+      /* @__PURE__ */ jsx(Search, { className: "absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground", "aria-hidden": "true" }),
+      /* @__PURE__ */ jsx(
+        Input,
+        {
+          ref,
+          type: "search",
+          placeholder,
+          className: "pl-8 h-10 w-full",
+          value,
+          onChange: (e) => onChange(e.target.value),
+          "aria-label": placeholder
+        }
+      )
+    ] });
+  }
+);
+SearchBar.displayName = "SearchBar";
+var ViewToggle = React4.forwardRef(
+  ({ viewMode, onViewModeChange, gridLabel = "\uADF8\uB9AC\uB4DC \uBDF0", listLabel = "\uB9AC\uC2A4\uD2B8 \uBDF0", className }, ref) => {
+    return /* @__PURE__ */ jsxs("div", { ref, className: cn("flex items-center border rounded-md", className), role: "group", "aria-label": "\uBDF0 \uBAA8\uB4DC \uC120\uD0DD", children: [
+      /* @__PURE__ */ jsx(
+        Button,
+        {
+          variant: viewMode === "grid" ? "default" : "ghost",
+          size: "icon",
+          onClick: () => onViewModeChange("grid"),
+          className: "rounded-none rounded-l-md h-10 w-10",
+          "aria-label": gridLabel,
+          "aria-pressed": viewMode === "grid",
+          children: /* @__PURE__ */ jsx(Grid3X3, { className: "h-4 w-4", "aria-hidden": "true" })
+        }
+      ),
+      /* @__PURE__ */ jsx(
+        Button,
+        {
+          variant: viewMode === "list" ? "default" : "ghost",
+          size: "icon",
+          onClick: () => onViewModeChange("list"),
+          className: "rounded-none rounded-r-md h-10 w-10",
+          "aria-label": listLabel,
+          "aria-pressed": viewMode === "list",
+          children: /* @__PURE__ */ jsx(LayoutGrid, { className: "h-4 w-4", "aria-hidden": "true" })
+        }
+      )
+    ] });
+  }
+);
+ViewToggle.displayName = "ViewToggle";
+var defaultLanguages = [
+  { code: "ko", label: "\uD55C\uAD6D\uC5B4" },
+  { code: "en", label: "English" }
+];
+var LanguageSelector = React4.forwardRef(
+  ({ currentLocale, onLocaleChange, languages = defaultLanguages, className }, ref) => {
+    const currentLanguage = languages.find((lang) => lang.code === currentLocale);
+    return /* @__PURE__ */ jsxs(DropdownMenu, { children: [
+      /* @__PURE__ */ jsx(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ jsxs(
+        Button,
+        {
+          ref,
+          variant: "outline",
+          size: "sm",
+          className: cn("h-10 flex items-center gap-1", className),
+          children: [
+            /* @__PURE__ */ jsx(Globe, { className: "h-4 w-4" }),
+            /* @__PURE__ */ jsx("span", { children: currentLanguage?.label || "\uC5B8\uC5B4" })
+          ]
+        }
+      ) }),
+      /* @__PURE__ */ jsx(DropdownMenuContent, { align: "end", children: languages.map((lang) => /* @__PURE__ */ jsx(
+        DropdownMenuItem,
+        {
+          onClick: () => onLocaleChange(lang.code),
+          className: cn(
+            "cursor-pointer",
+            currentLocale === lang.code && "bg-accent"
+          ),
+          children: lang.label
+        },
+        lang.code
+      )) })
+    ] });
+  }
+);
+LanguageSelector.displayName = "LanguageSelector";
 var Card = React4.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   "div",
   {
@@ -410,7 +498,163 @@ var CardFooter = React4.forwardRef(({ className, ...props }, ref) => /* @__PURE_
   }
 ));
 CardFooter.displayName = "CardFooter";
+var Sidebar = React4.forwardRef(
+  ({
+    categories,
+    activeCategory,
+    onCategoryChange,
+    categoryTitle = "\uCE74\uD14C\uACE0\uB9AC",
+    onFilterClick,
+    filterLabel = "\uD544\uD130",
+    onHelpClick,
+    helpLabel = "\uB3C4\uC6C0\uB9D0",
+    className
+  }, ref) => {
+    return /* @__PURE__ */ jsx(
+      "aside",
+      {
+        ref,
+        className: cn("w-56 shrink-0", className),
+        "aria-label": "\uCE74\uD14C\uACE0\uB9AC \uB124\uBE44\uAC8C\uC774\uC158",
+        children: /* @__PURE__ */ jsxs("div", { className: "bg-card rounded-lg border shadow-sm p-4", children: [
+          /* @__PURE__ */ jsx("h3", { id: "sidebar-category-heading", className: "font-medium mb-3 text-sm text-muted-foreground", children: categoryTitle }),
+          /* @__PURE__ */ jsx("nav", { className: "space-y-1", "aria-labelledby": "sidebar-category-heading", children: categories.map((category) => /* @__PURE__ */ jsx(
+            Button,
+            {
+              variant: activeCategory === category.id ? "default" : "ghost",
+              className: "w-full justify-start text-left",
+              onClick: () => onCategoryChange(category.id),
+              "aria-current": activeCategory === category.id ? "page" : void 0,
+              children: category.label
+            },
+            category.id
+          )) }),
+          /* @__PURE__ */ jsxs("div", { className: "mt-6 pt-4 border-t", children: [
+            onFilterClick && /* @__PURE__ */ jsxs(
+              Button,
+              {
+                variant: "outline",
+                size: "sm",
+                className: "w-full h-10 mb-2",
+                onClick: onFilterClick,
+                children: [
+                  /* @__PURE__ */ jsx(ListFilter, { className: "h-4 w-4 mr-2", "aria-hidden": "true" }),
+                  filterLabel
+                ]
+              }
+            ),
+            onHelpClick && /* @__PURE__ */ jsx(
+              Button,
+              {
+                variant: "outline",
+                size: "sm",
+                className: "w-full h-10",
+                onClick: onHelpClick,
+                children: helpLabel
+              }
+            )
+          ] })
+        ] })
+      }
+    );
+  }
+);
+Sidebar.displayName = "Sidebar";
+var MobileMenu = React4.forwardRef(
+  ({
+    categories,
+    activeCategory,
+    onCategoryChange,
+    menuTitle = "\uBA54\uB274",
+    menuDescription = "\uCE74\uD14C\uACE0\uB9AC \uBC0F \uBA54\uB274 \uC635\uC158\uC744 \uC120\uD0DD\uD558\uC138\uC694",
+    menuButtonLabel = "\uBA54\uB274 \uC5F4\uAE30",
+    categoryTitle = "\uCE74\uD14C\uACE0\uB9AC",
+    searchValue = "",
+    onSearchChange,
+    searchPlaceholder = "\uAC80\uC0C9...",
+    onFilterClick,
+    filterLabel = "\uD544\uD130",
+    onHelpClick,
+    helpLabel = "\uB3C4\uC6C0\uB9D0",
+    className
+  }, ref) => {
+    const [open, setOpen] = React4.useState(false);
+    const handleCategoryChange = (categoryId) => {
+      onCategoryChange(categoryId);
+      setOpen(false);
+    };
+    return /* @__PURE__ */ jsxs(Sheet, { open, onOpenChange: setOpen, children: [
+      /* @__PURE__ */ jsx(SheetTrigger, { asChild: true, children: /* @__PURE__ */ jsx(
+        Button,
+        {
+          ref,
+          variant: "outline",
+          size: "icon",
+          className: cn("h-10 w-10", className),
+          "aria-label": menuButtonLabel,
+          children: /* @__PURE__ */ jsx(Menu, { className: "h-4 w-4" })
+        }
+      ) }),
+      /* @__PURE__ */ jsxs(SheetContent, { side: "right", className: "w-[80%] sm:w-[350px]", children: [
+        /* @__PURE__ */ jsxs(SheetHeader, { children: [
+          /* @__PURE__ */ jsx(SheetTitle, { children: menuTitle }),
+          /* @__PURE__ */ jsx(SheetDescription, { className: "sr-only", children: menuDescription })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "py-4 space-y-6", children: [
+          onSearchChange && /* @__PURE__ */ jsx(
+            SearchBar,
+            {
+              value: searchValue,
+              onChange: onSearchChange,
+              placeholder: searchPlaceholder,
+              className: "w-full"
+            }
+          ),
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("h3", { className: "font-medium mb-3 text-sm text-muted-foreground", children: categoryTitle }),
+            /* @__PURE__ */ jsx("nav", { className: "space-y-1", children: categories.map((category) => /* @__PURE__ */ jsx(
+              Button,
+              {
+                variant: activeCategory === category.id ? "default" : "ghost",
+                className: "w-full justify-start text-left",
+                onClick: () => handleCategoryChange(category.id),
+                children: category.label
+              },
+              category.id
+            )) })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "pt-4 border-t space-y-2", children: [
+            onFilterClick && /* @__PURE__ */ jsxs(
+              Button,
+              {
+                variant: "outline",
+                size: "sm",
+                className: "w-full h-10",
+                onClick: onFilterClick,
+                children: [
+                  /* @__PURE__ */ jsx(ListFilter, { className: "h-4 w-4 mr-2" }),
+                  filterLabel
+                ]
+              }
+            ),
+            onHelpClick && /* @__PURE__ */ jsx(
+              Button,
+              {
+                variant: "outline",
+                size: "sm",
+                className: "w-full h-10",
+                onClick: onHelpClick,
+                children: helpLabel
+              }
+            )
+          ] })
+        ] })
+      ] })
+    ] });
+  }
+);
+MobileMenu.displayName = "MobileMenu";
 
-export { Badge, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, Input, ScrollArea, ScrollBar, Separator2 as Separator, Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetOverlay, SheetPortal, SheetTitle, SheetTrigger, badgeVariants, buttonVariants, cn };
+export { Badge, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, Input, LanguageSelector, MobileMenu, ScrollArea, ScrollBar, SearchBar, Separator2 as Separator, Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetOverlay, SheetPortal, SheetTitle, SheetTrigger, Sidebar, ViewToggle, badgeVariants, buttonVariants, cn };
 //# sourceMappingURL=index.mjs.map
 //# sourceMappingURL=index.mjs.map
