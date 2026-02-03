@@ -3,9 +3,9 @@ import { Slot } from '@radix-ui/react-slot';
 import { cva } from 'class-variance-authority';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { jsx, jsxs } from 'react/jsx-runtime';
+import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { X, ChevronRight, Check, Circle, Search, Grid3X3, LayoutGrid, Globe, ListFilter, Menu } from 'lucide-react';
+import { X, ChevronRight, Check, Circle, Search, Grid3X3, LayoutGrid, Globe, ListFilter, Menu, Mic, Chrome, ArrowRight, CheckSquare, ExternalLink } from 'lucide-react';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
 import * as SeparatorPrimitive from '@radix-ui/react-separator';
@@ -498,6 +498,218 @@ var CardFooter = React4.forwardRef(({ className, ...props }, ref) => /* @__PURE_
   }
 ));
 CardFooter.displayName = "CardFooter";
+function ItemCardInner({
+  item,
+  mode,
+  onDetailClick,
+  onCtaClick,
+  detailLabel = "\uC0C1\uC138",
+  defaultCtaLabel = "\uC2DC\uC791",
+  className
+}, ref) {
+  const IconComponent = item.icon;
+  const handleDetailClick = () => {
+    onDetailClick?.(item);
+  };
+  const handleCtaClick = () => {
+    if (item.ctaUrl) {
+      window.open(item.ctaUrl, "_blank", "noopener,noreferrer");
+    }
+    onCtaClick?.(item);
+  };
+  if (mode === "grid") {
+    return /* @__PURE__ */ jsxs(
+      Card,
+      {
+        ref,
+        className: cn(
+          "overflow-hidden transition-all hover:shadow-md hover:border-gray-300 h-full flex flex-col",
+          className
+        ),
+        children: [
+          /* @__PURE__ */ jsx(CardHeader, { className: "pb-2 pt-4 px-5", children: /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
+            /* @__PURE__ */ jsx("div", { className: "flex items-center justify-center w-10 h-10 rounded-lg border bg-background", "aria-hidden": "true", children: /* @__PURE__ */ jsx(IconComponent, { className: "h-5 w-5 text-foreground" }) }),
+            /* @__PURE__ */ jsx(CardTitle, { className: "text-base font-medium", children: item.title })
+          ] }) }),
+          /* @__PURE__ */ jsx(CardContent, { className: "pb-2 pt-1 px-5 flex-grow", children: /* @__PURE__ */ jsx(CardDescription, { className: "text-sm line-clamp-2", children: item.description }) }),
+          /* @__PURE__ */ jsxs(CardFooter, { className: "flex justify-between pt-4 px-5 pb-5", children: [
+            /* @__PURE__ */ jsx(
+              Button,
+              {
+                variant: "ghost",
+                size: "sm",
+                className: "text-sm text-muted-foreground h-8 px-2",
+                onClick: handleDetailClick,
+                "aria-label": `${item.title} ${detailLabel}`,
+                children: detailLabel
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              Button,
+              {
+                variant: "default",
+                size: "sm",
+                className: "text-sm h-8 px-4",
+                onClick: handleCtaClick,
+                "aria-label": `${item.title} ${item.ctaLabel || defaultCtaLabel}`,
+                children: item.ctaLabel || defaultCtaLabel
+              }
+            )
+          ] })
+        ]
+      }
+    );
+  }
+  return /* @__PURE__ */ jsxs(
+    "article",
+    {
+      ref,
+      className: cn(
+        "flex flex-row items-center justify-between p-4 rounded-lg border bg-card hover:shadow-sm hover:border-gray-300 transition-all",
+        className
+      ),
+      children: [
+        /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3 flex-1 min-w-0", children: [
+          /* @__PURE__ */ jsx("div", { className: "flex items-center justify-center w-10 h-10 rounded-lg border bg-background shrink-0", "aria-hidden": "true", children: /* @__PURE__ */ jsx(IconComponent, { className: "h-5 w-5 text-foreground" }) }),
+          /* @__PURE__ */ jsxs("div", { className: "flex-1 min-w-0", children: [
+            /* @__PURE__ */ jsx("h3", { className: "font-medium text-base truncate", children: item.title }),
+            /* @__PURE__ */ jsx("p", { className: "text-sm text-muted-foreground line-clamp-1", children: item.description })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 ml-4", children: [
+          /* @__PURE__ */ jsx(
+            Button,
+            {
+              variant: "ghost",
+              size: "sm",
+              className: "text-sm text-muted-foreground h-8 px-2",
+              onClick: handleDetailClick,
+              "aria-label": `${item.title} ${detailLabel}`,
+              children: detailLabel
+            }
+          ),
+          /* @__PURE__ */ jsx(
+            Button,
+            {
+              variant: "default",
+              size: "sm",
+              className: "text-sm h-8 px-4",
+              onClick: handleCtaClick,
+              "aria-label": `${item.title} ${item.ctaLabel || defaultCtaLabel}`,
+              children: item.ctaLabel || defaultCtaLabel
+            }
+          )
+        ] })
+      ]
+    }
+  );
+}
+var ItemCard = React4.forwardRef(ItemCardInner);
+function ChromeExtensionJsonLd({
+  siteUrl,
+  name,
+  description,
+  version = "1.0.0",
+  downloadUrl,
+  screenshotPath = "/og-image.png",
+  logoPath = "/logo.png",
+  features = [],
+  price = "0",
+  priceCurrency = "USD",
+  rating,
+  socialLinks = [],
+  includeSearch = false,
+  searchUrlTemplate = "/?q={search_term_string}"
+}) {
+  const screenshotUrl = screenshotPath.startsWith("http") ? screenshotPath : `${siteUrl}${screenshotPath}`;
+  const logoUrl = logoPath.startsWith("http") ? logoPath : `${siteUrl}${logoPath}`;
+  const softwareApplicationSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name,
+    description,
+    applicationCategory: "BrowserApplication",
+    operatingSystem: "Chrome",
+    offers: {
+      "@type": "Offer",
+      price,
+      priceCurrency
+    },
+    author: {
+      "@type": "Organization",
+      name,
+      url: siteUrl
+    },
+    softwareVersion: version,
+    downloadUrl,
+    screenshot: screenshotUrl
+  };
+  if (rating) {
+    softwareApplicationSchema.aggregateRating = {
+      "@type": "AggregateRating",
+      ratingValue: rating.ratingValue,
+      ratingCount: rating.ratingCount
+    };
+  }
+  if (features.length > 0) {
+    softwareApplicationSchema.featureList = features;
+  }
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name,
+    url: siteUrl,
+    logo: logoUrl
+  };
+  if (socialLinks.length > 0) {
+    organizationSchema.sameAs = socialLinks;
+  }
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name,
+    url: siteUrl
+  };
+  if (includeSearch) {
+    websiteSchema.potentialAction = {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${siteUrl}${searchUrlTemplate}`
+      },
+      "query-input": "required name=search_term_string"
+    };
+  }
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsx(
+      "script",
+      {
+        type: "application/ld+json",
+        dangerouslySetInnerHTML: {
+          __html: JSON.stringify(softwareApplicationSchema)
+        }
+      }
+    ),
+    /* @__PURE__ */ jsx(
+      "script",
+      {
+        type: "application/ld+json",
+        dangerouslySetInnerHTML: {
+          __html: JSON.stringify(organizationSchema)
+        }
+      }
+    ),
+    /* @__PURE__ */ jsx(
+      "script",
+      {
+        type: "application/ld+json",
+        dangerouslySetInnerHTML: {
+          __html: JSON.stringify(websiteSchema)
+        }
+      }
+    )
+  ] });
+}
 var Sidebar = React4.forwardRef(
   ({
     categories,
@@ -654,7 +866,367 @@ var MobileMenu = React4.forwardRef(
   }
 );
 MobileMenu.displayName = "MobileMenu";
+var HeroSection = React4.forwardRef(
+  ({
+    title = "Recorda",
+    subtitle = "\uBE0C\uB77C\uC6B0\uC800\uC5D0\uC11C \uBC14\uB85C \uB179\uC74C\uD558\uC138\uC694",
+    description = "\uB9C8\uC774\uD06C, \uD0ED \uC624\uB514\uC624\uB97C \uD55C \uBC88\uC758 \uD074\uB9AD\uC73C\uB85C. \uBB34\uB8CC \uD06C\uB86C \uD655\uC7A5 \uD504\uB85C\uADF8\uB7A8.",
+    ctaUrl = "https://chrome.google.com/webstore/detail/recorda",
+    ctaLabel = "Chrome\uC5D0 \uCD94\uAC00\uD558\uAE30",
+    trustBadge = "\uBB34\uB8CC \xB7 \uC124\uCE58 \uAC04\uD3B8 \xB7 \uAC1C\uC778\uC815\uBCF4 \uBCF4\uD638",
+    icon: IconComponent = Mic,
+    ctaIcon: CtaIconComponent = Chrome,
+    ariaLabel = "\uD788\uC5B4\uB85C \uC139\uC158",
+    className
+  }, ref) => {
+    const handleCtaClick = () => {
+      window.open(ctaUrl, "_blank", "noopener,noreferrer");
+    };
+    return /* @__PURE__ */ jsxs(
+      "section",
+      {
+        ref,
+        className: cn(
+          "relative py-20 md:py-32 px-4 overflow-hidden",
+          className
+        ),
+        "aria-label": ariaLabel,
+        children: [
+          /* @__PURE__ */ jsx("div", { className: "absolute inset-0 bg-gradient-to-b from-muted/50 to-background -z-10", "aria-hidden": "true" }),
+          /* @__PURE__ */ jsxs("div", { className: "container mx-auto max-w-4xl text-center", children: [
+            /* @__PURE__ */ jsx("div", { className: "inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-primary text-primary-foreground mb-8 shadow-lg", children: /* @__PURE__ */ jsx(IconComponent, { className: "h-10 w-10", "aria-hidden": "true" }) }),
+            /* @__PURE__ */ jsx("h1", { className: "text-4xl md:text-6xl font-bold tracking-tight mb-4", children: title }),
+            /* @__PURE__ */ jsx("p", { className: "text-xl md:text-2xl text-foreground font-medium mb-4", children: subtitle }),
+            /* @__PURE__ */ jsx("p", { className: "text-lg text-muted-foreground max-w-2xl mx-auto mb-10", children: description }),
+            /* @__PURE__ */ jsxs(
+              Button,
+              {
+                size: "lg",
+                onClick: handleCtaClick,
+                className: "h-14 px-8 text-lg gap-2 shadow-lg hover:shadow-xl transition-shadow",
+                "aria-label": `${ctaLabel} (\uC0C8 \uCC3D\uC5D0\uC11C \uC5F4\uB9BC)`,
+                children: [
+                  /* @__PURE__ */ jsx(CtaIconComponent, { className: "h-5 w-5", "aria-hidden": "true" }),
+                  ctaLabel
+                ]
+              }
+            ),
+            trustBadge && /* @__PURE__ */ jsx("p", { className: "mt-6 text-sm text-muted-foreground", children: trustBadge })
+          ] })
+        ]
+      }
+    );
+  }
+);
+HeroSection.displayName = "HeroSection";
+var CtaSection = React4.forwardRef(
+  ({
+    title = "\uC9C0\uAE08 \uBC14\uB85C \uC2DC\uC791\uD558\uC138\uC694",
+    description = "\uBB34\uB8CC\uB85C Recorda\uB97C \uC124\uCE58\uD558\uACE0 \uBE0C\uB77C\uC6B0\uC800\uC5D0\uC11C \uB179\uC74C\uC744 \uC2DC\uC791\uD558\uC138\uC694.",
+    ctaUrl = "https://chrome.google.com/webstore/detail/recorda",
+    ctaLabel = "Chrome\uC5D0 \uCD94\uAC00\uD558\uAE30",
+    ctaIcon: CtaIconComponent = Chrome,
+    secondaryLabel = "\uB354 \uC54C\uC544\uBCF4\uAE30",
+    secondaryUrl = "/help",
+    ariaLabel = "\uC124\uCE58 \uC548\uB0B4",
+    className
+  }, ref) => {
+    const handleCtaClick = () => {
+      window.open(ctaUrl, "_blank", "noopener,noreferrer");
+    };
+    return /* @__PURE__ */ jsx(
+      "section",
+      {
+        ref,
+        className: cn(
+          "py-20 md:py-28 px-4 bg-primary text-primary-foreground",
+          className
+        ),
+        "aria-label": ariaLabel,
+        children: /* @__PURE__ */ jsxs("div", { className: "container mx-auto max-w-3xl text-center", children: [
+          /* @__PURE__ */ jsx("h2", { className: "text-3xl md:text-4xl font-bold mb-4", children: title }),
+          /* @__PURE__ */ jsx("p", { className: "text-lg opacity-90 mb-10 max-w-xl mx-auto", children: description }),
+          /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row items-center justify-center gap-4", children: [
+            /* @__PURE__ */ jsxs(
+              Button,
+              {
+                size: "lg",
+                variant: "secondary",
+                onClick: handleCtaClick,
+                className: "h-14 px-8 text-lg gap-2 w-full sm:w-auto",
+                "aria-label": `${ctaLabel} (\uC0C8 \uCC3D\uC5D0\uC11C \uC5F4\uB9BC)`,
+                children: [
+                  /* @__PURE__ */ jsx(CtaIconComponent, { className: "h-5 w-5", "aria-hidden": "true" }),
+                  ctaLabel
+                ]
+              }
+            ),
+            secondaryUrl && /* @__PURE__ */ jsx(
+              Button,
+              {
+                size: "lg",
+                variant: "outline",
+                className: "h-14 px-8 text-lg gap-2 w-full sm:w-auto border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10",
+                asChild: true,
+                children: /* @__PURE__ */ jsxs("a", { href: secondaryUrl, children: [
+                  secondaryLabel,
+                  /* @__PURE__ */ jsx(ArrowRight, { className: "h-5 w-5", "aria-hidden": "true" })
+                ] })
+              }
+            )
+          ] })
+        ] })
+      }
+    );
+  }
+);
+CtaSection.displayName = "CtaSection";
+var Header = React4.forwardRef(
+  ({
+    brandName = "Recorda",
+    subTitle = "Service Hub",
+    searchValue,
+    onSearchChange,
+    searchPlaceholder = "\uAC80\uC0C9...",
+    viewMode,
+    onViewModeChange,
+    currentLocale,
+    onLocaleChange,
+    className
+  }, ref) => {
+    return /* @__PURE__ */ jsxs(
+      "header",
+      {
+        ref,
+        className: cn("flex items-center justify-between", className),
+        children: [
+          /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-4", children: [
+            /* @__PURE__ */ jsx("h1", { className: "text-2xl font-bold", children: brandName }),
+            subTitle && /* @__PURE__ */ jsx("h2", { className: "text-xl text-muted-foreground", children: subTitle })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
+            /* @__PURE__ */ jsx(
+              SearchBar,
+              {
+                value: searchValue,
+                onChange: onSearchChange,
+                placeholder: searchPlaceholder,
+                className: "w-64"
+              }
+            ),
+            /* @__PURE__ */ jsx(ViewToggle, { viewMode, onViewModeChange }),
+            /* @__PURE__ */ jsx(
+              LanguageSelector,
+              {
+                currentLocale,
+                onLocaleChange
+              }
+            )
+          ] })
+        ]
+      }
+    );
+  }
+);
+Header.displayName = "Header";
+var Footer = React4.forwardRef(
+  ({
+    brandName = "Brand",
+    copyright = "All rights reserved.",
+    links = [
+      { label: "\uC774\uC6A9\uC57D\uAD00", href: "/terms" },
+      { label: "\uAC1C\uC778\uC815\uBCF4\uCC98\uB9AC\uBC29\uCE68", href: "/privacy" },
+      { label: "\uBB38\uC758\uD558\uAE30", href: "/contact" }
+    ],
+    navAriaLabel = "Footer links",
+    className
+  }, ref) => {
+    const currentYear = (/* @__PURE__ */ new Date()).getFullYear();
+    return /* @__PURE__ */ jsx(
+      "footer",
+      {
+        ref,
+        className: cn("border-t py-3 bg-background", className),
+        role: "contentinfo",
+        children: /* @__PURE__ */ jsxs("div", { className: "container flex flex-col sm:flex-row justify-between items-center px-4", children: [
+          /* @__PURE__ */ jsxs("p", { className: "text-xs text-muted-foreground", children: [
+            "\xA9 ",
+            currentYear,
+            " ",
+            brandName,
+            ". ",
+            copyright
+          ] }),
+          links.length > 0 && /* @__PURE__ */ jsx("nav", { className: "flex space-x-6 mt-2 sm:mt-0", "aria-label": navAriaLabel, children: links.map((link) => /* @__PURE__ */ jsx(
+            Button,
+            {
+              variant: "link",
+              size: "sm",
+              className: "text-xs text-muted-foreground p-0 h-auto",
+              asChild: true,
+              children: /* @__PURE__ */ jsx("a", { href: link.href, children: link.label })
+            },
+            link.href
+          )) })
+        ] })
+      }
+    );
+  }
+);
+Footer.displayName = "Footer";
+var FeaturesSection = React4.forwardRef(
+  ({
+    title = "\uC8FC\uC694 \uAE30\uB2A5",
+    subtitle = "\uB2E4\uC591\uD55C \uAE30\uB2A5\uC744 \uC0B4\uD3B4\uBCF4\uC138\uC694",
+    features,
+    ariaLabelledBy = "features-title",
+    className
+  }, ref) => {
+    return /* @__PURE__ */ jsx(
+      "section",
+      {
+        ref,
+        className: cn("py-20 md:py-28 px-4 bg-muted/30", className),
+        "aria-labelledby": ariaLabelledBy,
+        children: /* @__PURE__ */ jsxs("div", { className: "container mx-auto max-w-6xl", children: [
+          /* @__PURE__ */ jsxs("div", { className: "text-center mb-16", children: [
+            /* @__PURE__ */ jsx("h2", { id: ariaLabelledBy, className: "text-3xl md:text-4xl font-bold mb-4", children: title }),
+            /* @__PURE__ */ jsx("p", { className: "text-lg text-muted-foreground max-w-2xl mx-auto", children: subtitle })
+          ] }),
+          /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8", children: features.map((feature) => {
+            const IconComponent = feature.icon;
+            return /* @__PURE__ */ jsxs(
+              "div",
+              {
+                className: "bg-card rounded-xl border p-6 hover:shadow-md transition-shadow",
+                children: [
+                  /* @__PURE__ */ jsx("div", { className: "flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 text-primary mb-4", children: /* @__PURE__ */ jsx(IconComponent, { className: "h-6 w-6", "aria-hidden": "true" }) }),
+                  /* @__PURE__ */ jsx("h3", { className: "text-lg font-semibold mb-2", children: feature.title }),
+                  /* @__PURE__ */ jsx("p", { className: "text-muted-foreground", children: feature.description })
+                ]
+              },
+              feature.id
+            );
+          }) })
+        ] })
+      }
+    );
+  }
+);
+FeaturesSection.displayName = "FeaturesSection";
+function ItemDetailsDialogInner({
+  open,
+  onOpenChange,
+  item,
+  closeLabel = "\uB2EB\uAE30",
+  featuresTitle = "\uC8FC\uC694 \uAE30\uB2A5",
+  badgesTitle = "\uC9C0\uC6D0 \uD615\uC2DD",
+  className
+}, ref) {
+  if (!item) return null;
+  const IconComponent = item.icon;
+  const handleCta = () => {
+    if (item.ctaUrl) {
+      window.open(item.ctaUrl, "_blank", "noopener,noreferrer");
+    }
+  };
+  return /* @__PURE__ */ jsx(Dialog, { open, onOpenChange, children: /* @__PURE__ */ jsxs(
+    DialogContent,
+    {
+      ref,
+      className: cn("sm:max-w-[600px] max-h-[90vh] overflow-y-auto", className),
+      children: [
+        /* @__PURE__ */ jsx(DialogHeader, { children: /* @__PURE__ */ jsxs("div", { className: "flex items-start gap-3", children: [
+          /* @__PURE__ */ jsx("div", { className: "flex items-center justify-center w-12 h-12 rounded-lg border bg-background", "aria-hidden": "true", children: /* @__PURE__ */ jsx(IconComponent, { className: "h-6 w-6 text-foreground" }) }),
+          /* @__PURE__ */ jsxs("div", { className: "flex-1", children: [
+            /* @__PURE__ */ jsx(DialogTitle, { className: "text-xl", children: item.title }),
+            /* @__PURE__ */ jsx(DialogDescription, { className: "mt-1.5", children: item.description }),
+            item.categories && item.categories.length > 0 && /* @__PURE__ */ jsx("div", { className: "flex flex-wrap gap-2 mt-3", children: item.categories.map((category) => /* @__PURE__ */ jsx(Badge, { variant: "outline", children: category.label }, category.id)) })
+          ] })
+        ] }) }),
+        /* @__PURE__ */ jsxs("div", { className: "py-2", children: [
+          item.features && item.features.length > 0 && /* @__PURE__ */ jsxs(Fragment, { children: [
+            /* @__PURE__ */ jsx(Separator2, { className: "my-4" }),
+            /* @__PURE__ */ jsx("div", { className: "space-y-4", children: /* @__PURE__ */ jsxs("div", { children: [
+              /* @__PURE__ */ jsx("h4", { className: "text-sm font-medium mb-3", children: featuresTitle }),
+              /* @__PURE__ */ jsx("ul", { className: "space-y-2", children: item.features.map((feature, index) => /* @__PURE__ */ jsxs("li", { className: "flex items-start gap-2 text-sm", children: [
+                /* @__PURE__ */ jsx(CheckSquare, { className: "h-4 w-4 text-primary mt-0.5 shrink-0", "aria-hidden": "true" }),
+                /* @__PURE__ */ jsx("span", { children: feature })
+              ] }, index)) })
+            ] }) })
+          ] }),
+          item.badges && item.badges.length > 0 && /* @__PURE__ */ jsxs(Fragment, { children: [
+            /* @__PURE__ */ jsx(Separator2, { className: "my-4" }),
+            /* @__PURE__ */ jsxs("div", { children: [
+              /* @__PURE__ */ jsx("h4", { className: "text-sm font-medium mb-3", children: badgesTitle }),
+              /* @__PURE__ */ jsx("div", { className: "flex flex-wrap gap-2", children: item.badges.map((badge) => /* @__PURE__ */ jsx(Badge, { variant: "secondary", children: badge }, badge)) })
+            ] })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs(DialogFooter, { className: "flex sm:justify-between gap-2", children: [
+          /* @__PURE__ */ jsx(Button, { variant: "outline", onClick: () => onOpenChange(false), children: closeLabel }),
+          item.ctaUrl && item.ctaLabel && /* @__PURE__ */ jsxs(Button, { onClick: handleCta, className: "gap-1.5", "aria-label": `${item.title} ${item.ctaLabel} (\uC0C8 \uCC3D)`, children: [
+            item.ctaLabel,
+            /* @__PURE__ */ jsx(ExternalLink, { className: "h-4 w-4", "aria-hidden": "true" })
+          ] })
+        ] })
+      ]
+    }
+  ) });
+}
+var ItemDetailsDialog = React4.forwardRef(ItemDetailsDialogInner);
+function ItemsSectionInner({
+  title = "\uC11C\uBE44\uC2A4 \uB458\uB7EC\uBCF4\uAE30",
+  subtitle = "\uB2E4\uC591\uD55C \uAE30\uB2A5\uC744 \uC0B4\uD3B4\uBCF4\uC138\uC694",
+  items,
+  viewMode = "grid",
+  onItemDetailClick,
+  onItemCtaClick,
+  detailLabel = "\uC0C1\uC138",
+  defaultCtaLabel = "\uC2DC\uC791",
+  ariaLabelledBy = "items-title",
+  className
+}, ref) {
+  return /* @__PURE__ */ jsx(
+    "section",
+    {
+      ref,
+      className: cn("py-20 md:py-28 px-4", className),
+      "aria-labelledby": ariaLabelledBy,
+      children: /* @__PURE__ */ jsxs("div", { className: "container mx-auto max-w-6xl", children: [
+        /* @__PURE__ */ jsxs("div", { className: "text-center mb-16", children: [
+          /* @__PURE__ */ jsx("h2", { id: ariaLabelledBy, className: "text-3xl md:text-4xl font-bold mb-4", children: title }),
+          /* @__PURE__ */ jsx("p", { className: "text-lg text-muted-foreground max-w-2xl mx-auto", children: subtitle })
+        ] }),
+        viewMode === "grid" ? /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6", children: items.map((item) => /* @__PURE__ */ jsx(
+          ItemCard,
+          {
+            item,
+            mode: "grid",
+            onDetailClick: onItemDetailClick,
+            onCtaClick: onItemCtaClick,
+            detailLabel,
+            defaultCtaLabel
+          },
+          item.id
+        )) }) : /* @__PURE__ */ jsx("div", { className: "space-y-2", children: items.map((item) => /* @__PURE__ */ jsx(
+          ItemCard,
+          {
+            item,
+            mode: "list",
+            onDetailClick: onItemDetailClick,
+            onCtaClick: onItemCtaClick,
+            detailLabel,
+            defaultCtaLabel
+          },
+          item.id
+        )) })
+      ] })
+    }
+  );
+}
+var ItemsSection = React4.forwardRef(ItemsSectionInner);
 
-export { Badge, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, Input, LanguageSelector, MobileMenu, ScrollArea, ScrollBar, SearchBar, Separator2 as Separator, Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetOverlay, SheetPortal, SheetTitle, SheetTrigger, Sidebar, ViewToggle, badgeVariants, buttonVariants, cn };
+export { Badge, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, ChromeExtensionJsonLd, CtaSection, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, FeaturesSection, Footer, Header, HeroSection, Input, ItemCard, ItemDetailsDialog, ItemsSection, LanguageSelector, MobileMenu, ScrollArea, ScrollBar, SearchBar, Separator2 as Separator, Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetOverlay, SheetPortal, SheetTitle, SheetTrigger, Sidebar, ViewToggle, badgeVariants, buttonVariants, cn };
 //# sourceMappingURL=index.mjs.map
 //# sourceMappingURL=index.mjs.map

@@ -61,6 +61,8 @@ export {
   SearchBar,
   ViewToggle,
   LanguageSelector,
+  ItemCard,
+  ChromeExtensionJsonLd,
 } from './molecules'
 
 // Molecules Types
@@ -71,6 +73,11 @@ export type {
   LanguageSelectorProps,
   Locale,
   Language,
+  ItemCardProps,
+  ItemCardItem,
+  ItemCardViewMode,
+  ChromeExtensionJsonLdProps,
+  ChromeExtensionRating,
 } from './molecules'
 
 // Organisms
@@ -83,10 +90,32 @@ export {
   CardContent,
   Sidebar,
   MobileMenu,
+  HeroSection,
+  CtaSection,
+  Header,
+  Footer,
+  FeaturesSection,
+  ItemDetailsDialog,
+  ItemsSection,
 } from './organisms'
 
 // Organisms Types
-export type { SidebarProps, MobileMenuProps, Category } from './organisms'
+export type {
+  SidebarProps,
+  MobileMenuProps,
+  Category,
+  HeroSectionProps,
+  CtaSectionProps,
+  HeaderProps,
+  FooterProps,
+  FooterLink,
+  FeaturesSectionProps,
+  Feature,
+  ItemDetailsDialogProps,
+  ItemDetailsItem,
+  ItemDetailsCategory,
+  ItemsSectionProps,
+} from './organisms'
 
 // Utils
 export { cn } from './utils'

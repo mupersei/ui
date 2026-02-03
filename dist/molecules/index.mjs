@@ -4,7 +4,7 @@ import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { Slot } from '@radix-ui/react-slot';
 import { cva } from 'class-variance-authority';
-import { jsx, jsxs } from 'react/jsx-runtime';
+import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
@@ -411,7 +411,272 @@ var LanguageSelector = React4.forwardRef(
   }
 );
 LanguageSelector.displayName = "LanguageSelector";
+var Card = React4.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+  "div",
+  {
+    ref,
+    className: cn(
+      "rounded-lg border bg-card text-card-foreground shadow-sm",
+      className
+    ),
+    ...props
+  }
+));
+Card.displayName = "Card";
+var CardHeader = React4.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+  "div",
+  {
+    ref,
+    className: cn("flex flex-col space-y-1.5 p-6", className),
+    ...props
+  }
+));
+CardHeader.displayName = "CardHeader";
+var CardTitle = React4.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+  "div",
+  {
+    ref,
+    className: cn(
+      "text-2xl font-semibold leading-none tracking-tight",
+      className
+    ),
+    ...props
+  }
+));
+CardTitle.displayName = "CardTitle";
+var CardDescription = React4.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+  "div",
+  {
+    ref,
+    className: cn("text-sm text-muted-foreground", className),
+    ...props
+  }
+));
+CardDescription.displayName = "CardDescription";
+var CardContent = React4.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx("div", { ref, className: cn("p-6 pt-0", className), ...props }));
+CardContent.displayName = "CardContent";
+var CardFooter = React4.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+  "div",
+  {
+    ref,
+    className: cn("flex items-center p-6 pt-0", className),
+    ...props
+  }
+));
+CardFooter.displayName = "CardFooter";
+function ItemCardInner({
+  item,
+  mode,
+  onDetailClick,
+  onCtaClick,
+  detailLabel = "\uC0C1\uC138",
+  defaultCtaLabel = "\uC2DC\uC791",
+  className
+}, ref) {
+  const IconComponent = item.icon;
+  const handleDetailClick = () => {
+    onDetailClick?.(item);
+  };
+  const handleCtaClick = () => {
+    if (item.ctaUrl) {
+      window.open(item.ctaUrl, "_blank", "noopener,noreferrer");
+    }
+    onCtaClick?.(item);
+  };
+  if (mode === "grid") {
+    return /* @__PURE__ */ jsxs(
+      Card,
+      {
+        ref,
+        className: cn(
+          "overflow-hidden transition-all hover:shadow-md hover:border-gray-300 h-full flex flex-col",
+          className
+        ),
+        children: [
+          /* @__PURE__ */ jsx(CardHeader, { className: "pb-2 pt-4 px-5", children: /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
+            /* @__PURE__ */ jsx("div", { className: "flex items-center justify-center w-10 h-10 rounded-lg border bg-background", "aria-hidden": "true", children: /* @__PURE__ */ jsx(IconComponent, { className: "h-5 w-5 text-foreground" }) }),
+            /* @__PURE__ */ jsx(CardTitle, { className: "text-base font-medium", children: item.title })
+          ] }) }),
+          /* @__PURE__ */ jsx(CardContent, { className: "pb-2 pt-1 px-5 flex-grow", children: /* @__PURE__ */ jsx(CardDescription, { className: "text-sm line-clamp-2", children: item.description }) }),
+          /* @__PURE__ */ jsxs(CardFooter, { className: "flex justify-between pt-4 px-5 pb-5", children: [
+            /* @__PURE__ */ jsx(
+              Button,
+              {
+                variant: "ghost",
+                size: "sm",
+                className: "text-sm text-muted-foreground h-8 px-2",
+                onClick: handleDetailClick,
+                "aria-label": `${item.title} ${detailLabel}`,
+                children: detailLabel
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              Button,
+              {
+                variant: "default",
+                size: "sm",
+                className: "text-sm h-8 px-4",
+                onClick: handleCtaClick,
+                "aria-label": `${item.title} ${item.ctaLabel || defaultCtaLabel}`,
+                children: item.ctaLabel || defaultCtaLabel
+              }
+            )
+          ] })
+        ]
+      }
+    );
+  }
+  return /* @__PURE__ */ jsxs(
+    "article",
+    {
+      ref,
+      className: cn(
+        "flex flex-row items-center justify-between p-4 rounded-lg border bg-card hover:shadow-sm hover:border-gray-300 transition-all",
+        className
+      ),
+      children: [
+        /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3 flex-1 min-w-0", children: [
+          /* @__PURE__ */ jsx("div", { className: "flex items-center justify-center w-10 h-10 rounded-lg border bg-background shrink-0", "aria-hidden": "true", children: /* @__PURE__ */ jsx(IconComponent, { className: "h-5 w-5 text-foreground" }) }),
+          /* @__PURE__ */ jsxs("div", { className: "flex-1 min-w-0", children: [
+            /* @__PURE__ */ jsx("h3", { className: "font-medium text-base truncate", children: item.title }),
+            /* @__PURE__ */ jsx("p", { className: "text-sm text-muted-foreground line-clamp-1", children: item.description })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 ml-4", children: [
+          /* @__PURE__ */ jsx(
+            Button,
+            {
+              variant: "ghost",
+              size: "sm",
+              className: "text-sm text-muted-foreground h-8 px-2",
+              onClick: handleDetailClick,
+              "aria-label": `${item.title} ${detailLabel}`,
+              children: detailLabel
+            }
+          ),
+          /* @__PURE__ */ jsx(
+            Button,
+            {
+              variant: "default",
+              size: "sm",
+              className: "text-sm h-8 px-4",
+              onClick: handleCtaClick,
+              "aria-label": `${item.title} ${item.ctaLabel || defaultCtaLabel}`,
+              children: item.ctaLabel || defaultCtaLabel
+            }
+          )
+        ] })
+      ]
+    }
+  );
+}
+var ItemCard = React4.forwardRef(ItemCardInner);
+function ChromeExtensionJsonLd({
+  siteUrl,
+  name,
+  description,
+  version = "1.0.0",
+  downloadUrl,
+  screenshotPath = "/og-image.png",
+  logoPath = "/logo.png",
+  features = [],
+  price = "0",
+  priceCurrency = "USD",
+  rating,
+  socialLinks = [],
+  includeSearch = false,
+  searchUrlTemplate = "/?q={search_term_string}"
+}) {
+  const screenshotUrl = screenshotPath.startsWith("http") ? screenshotPath : `${siteUrl}${screenshotPath}`;
+  const logoUrl = logoPath.startsWith("http") ? logoPath : `${siteUrl}${logoPath}`;
+  const softwareApplicationSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name,
+    description,
+    applicationCategory: "BrowserApplication",
+    operatingSystem: "Chrome",
+    offers: {
+      "@type": "Offer",
+      price,
+      priceCurrency
+    },
+    author: {
+      "@type": "Organization",
+      name,
+      url: siteUrl
+    },
+    softwareVersion: version,
+    downloadUrl,
+    screenshot: screenshotUrl
+  };
+  if (rating) {
+    softwareApplicationSchema.aggregateRating = {
+      "@type": "AggregateRating",
+      ratingValue: rating.ratingValue,
+      ratingCount: rating.ratingCount
+    };
+  }
+  if (features.length > 0) {
+    softwareApplicationSchema.featureList = features;
+  }
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name,
+    url: siteUrl,
+    logo: logoUrl
+  };
+  if (socialLinks.length > 0) {
+    organizationSchema.sameAs = socialLinks;
+  }
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name,
+    url: siteUrl
+  };
+  if (includeSearch) {
+    websiteSchema.potentialAction = {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${siteUrl}${searchUrlTemplate}`
+      },
+      "query-input": "required name=search_term_string"
+    };
+  }
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsx(
+      "script",
+      {
+        type: "application/ld+json",
+        dangerouslySetInnerHTML: {
+          __html: JSON.stringify(softwareApplicationSchema)
+        }
+      }
+    ),
+    /* @__PURE__ */ jsx(
+      "script",
+      {
+        type: "application/ld+json",
+        dangerouslySetInnerHTML: {
+          __html: JSON.stringify(organizationSchema)
+        }
+      }
+    ),
+    /* @__PURE__ */ jsx(
+      "script",
+      {
+        type: "application/ld+json",
+        dangerouslySetInnerHTML: {
+          __html: JSON.stringify(websiteSchema)
+        }
+      }
+    )
+  ] });
+}
 
-export { LanguageSelector, SearchBar, ViewToggle };
+export { ChromeExtensionJsonLd, ItemCard, LanguageSelector, SearchBar, ViewToggle };
 //# sourceMappingURL=index.mjs.map
 //# sourceMappingURL=index.mjs.map

@@ -149,7 +149,7 @@ var Input = React5__namespace.forwardRef(
   }
 );
 Input.displayName = "Input";
-classVarianceAuthority.cva(
+var badgeVariants = classVarianceAuthority.cva(
   "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
   {
     variants: {
@@ -165,6 +165,10 @@ classVarianceAuthority.cva(
     }
   }
 );
+function Badge({ className, variant, ...props }) {
+  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: cn(badgeVariants({ variant }), className), ...props });
+}
+var Dialog = SheetPrimitive__namespace.Root;
 var DialogPortal = SheetPrimitive__namespace.Portal;
 var DialogOverlay = React5__namespace.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
   SheetPrimitive__namespace.Overlay,
@@ -200,6 +204,10 @@ var DialogContent = React5__namespace.forwardRef(({ className, children, ...prop
   )
 ] }));
 DialogContent.displayName = SheetPrimitive__namespace.Content.displayName;
+var DialogHeader = ({ className, ...props }) => /* @__PURE__ */ jsxRuntime.jsx("div", { className: cn("flex flex-col space-y-1.5 text-left", className), ...props });
+DialogHeader.displayName = "DialogHeader";
+var DialogFooter = ({ className, ...props }) => /* @__PURE__ */ jsxRuntime.jsx("div", { className: cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className), ...props });
+DialogFooter.displayName = "DialogFooter";
 var DialogTitle = React5__namespace.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
   SheetPrimitive__namespace.Title,
   {
@@ -211,6 +219,8 @@ var DialogTitle = React5__namespace.forwardRef(({ className, ...props }, ref) =>
 DialogTitle.displayName = SheetPrimitive__namespace.Title.displayName;
 var DialogDescription = React5__namespace.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(SheetPrimitive__namespace.Description, { ref, className: cn("text-sm text-muted-foreground", className), ...props }));
 DialogDescription.displayName = SheetPrimitive__namespace.Description.displayName;
+var DropdownMenu = DropdownMenuPrimitive__namespace.Root;
+var DropdownMenuTrigger = DropdownMenuPrimitive__namespace.Trigger;
 var DropdownMenuSubTrigger = React5__namespace.forwardRef(({ className, inset, children, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsxs(
   DropdownMenuPrimitive__namespace.SubTrigger,
   {
@@ -580,6 +590,541 @@ var MobileMenu = React5__namespace.forwardRef(
   }
 );
 MobileMenu.displayName = "MobileMenu";
+var HeroSection = React5__namespace.forwardRef(
+  ({
+    title = "Recorda",
+    subtitle = "\uBE0C\uB77C\uC6B0\uC800\uC5D0\uC11C \uBC14\uB85C \uB179\uC74C\uD558\uC138\uC694",
+    description = "\uB9C8\uC774\uD06C, \uD0ED \uC624\uB514\uC624\uB97C \uD55C \uBC88\uC758 \uD074\uB9AD\uC73C\uB85C. \uBB34\uB8CC \uD06C\uB86C \uD655\uC7A5 \uD504\uB85C\uADF8\uB7A8.",
+    ctaUrl = "https://chrome.google.com/webstore/detail/recorda",
+    ctaLabel = "Chrome\uC5D0 \uCD94\uAC00\uD558\uAE30",
+    trustBadge = "\uBB34\uB8CC \xB7 \uC124\uCE58 \uAC04\uD3B8 \xB7 \uAC1C\uC778\uC815\uBCF4 \uBCF4\uD638",
+    icon: IconComponent = lucideReact.Mic,
+    ctaIcon: CtaIconComponent = lucideReact.Chrome,
+    ariaLabel = "\uD788\uC5B4\uB85C \uC139\uC158",
+    className
+  }, ref) => {
+    const handleCtaClick = () => {
+      window.open(ctaUrl, "_blank", "noopener,noreferrer");
+    };
+    return /* @__PURE__ */ jsxRuntime.jsxs(
+      "section",
+      {
+        ref,
+        className: cn(
+          "relative py-20 md:py-32 px-4 overflow-hidden",
+          className
+        ),
+        "aria-label": ariaLabel,
+        children: [
+          /* @__PURE__ */ jsxRuntime.jsx("div", { className: "absolute inset-0 bg-gradient-to-b from-muted/50 to-background -z-10", "aria-hidden": "true" }),
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "container mx-auto max-w-4xl text-center", children: [
+            /* @__PURE__ */ jsxRuntime.jsx("div", { className: "inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-primary text-primary-foreground mb-8 shadow-lg", children: /* @__PURE__ */ jsxRuntime.jsx(IconComponent, { className: "h-10 w-10", "aria-hidden": "true" }) }),
+            /* @__PURE__ */ jsxRuntime.jsx("h1", { className: "text-4xl md:text-6xl font-bold tracking-tight mb-4", children: title }),
+            /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-xl md:text-2xl text-foreground font-medium mb-4", children: subtitle }),
+            /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-lg text-muted-foreground max-w-2xl mx-auto mb-10", children: description }),
+            /* @__PURE__ */ jsxRuntime.jsxs(
+              Button,
+              {
+                size: "lg",
+                onClick: handleCtaClick,
+                className: "h-14 px-8 text-lg gap-2 shadow-lg hover:shadow-xl transition-shadow",
+                "aria-label": `${ctaLabel} (\uC0C8 \uCC3D\uC5D0\uC11C \uC5F4\uB9BC)`,
+                children: [
+                  /* @__PURE__ */ jsxRuntime.jsx(CtaIconComponent, { className: "h-5 w-5", "aria-hidden": "true" }),
+                  ctaLabel
+                ]
+              }
+            ),
+            trustBadge && /* @__PURE__ */ jsxRuntime.jsx("p", { className: "mt-6 text-sm text-muted-foreground", children: trustBadge })
+          ] })
+        ]
+      }
+    );
+  }
+);
+HeroSection.displayName = "HeroSection";
+var CtaSection = React5__namespace.forwardRef(
+  ({
+    title = "\uC9C0\uAE08 \uBC14\uB85C \uC2DC\uC791\uD558\uC138\uC694",
+    description = "\uBB34\uB8CC\uB85C Recorda\uB97C \uC124\uCE58\uD558\uACE0 \uBE0C\uB77C\uC6B0\uC800\uC5D0\uC11C \uB179\uC74C\uC744 \uC2DC\uC791\uD558\uC138\uC694.",
+    ctaUrl = "https://chrome.google.com/webstore/detail/recorda",
+    ctaLabel = "Chrome\uC5D0 \uCD94\uAC00\uD558\uAE30",
+    ctaIcon: CtaIconComponent = lucideReact.Chrome,
+    secondaryLabel = "\uB354 \uC54C\uC544\uBCF4\uAE30",
+    secondaryUrl = "/help",
+    ariaLabel = "\uC124\uCE58 \uC548\uB0B4",
+    className
+  }, ref) => {
+    const handleCtaClick = () => {
+      window.open(ctaUrl, "_blank", "noopener,noreferrer");
+    };
+    return /* @__PURE__ */ jsxRuntime.jsx(
+      "section",
+      {
+        ref,
+        className: cn(
+          "py-20 md:py-28 px-4 bg-primary text-primary-foreground",
+          className
+        ),
+        "aria-label": ariaLabel,
+        children: /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "container mx-auto max-w-3xl text-center", children: [
+          /* @__PURE__ */ jsxRuntime.jsx("h2", { className: "text-3xl md:text-4xl font-bold mb-4", children: title }),
+          /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-lg opacity-90 mb-10 max-w-xl mx-auto", children: description }),
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex flex-col sm:flex-row items-center justify-center gap-4", children: [
+            /* @__PURE__ */ jsxRuntime.jsxs(
+              Button,
+              {
+                size: "lg",
+                variant: "secondary",
+                onClick: handleCtaClick,
+                className: "h-14 px-8 text-lg gap-2 w-full sm:w-auto",
+                "aria-label": `${ctaLabel} (\uC0C8 \uCC3D\uC5D0\uC11C \uC5F4\uB9BC)`,
+                children: [
+                  /* @__PURE__ */ jsxRuntime.jsx(CtaIconComponent, { className: "h-5 w-5", "aria-hidden": "true" }),
+                  ctaLabel
+                ]
+              }
+            ),
+            secondaryUrl && /* @__PURE__ */ jsxRuntime.jsx(
+              Button,
+              {
+                size: "lg",
+                variant: "outline",
+                className: "h-14 px-8 text-lg gap-2 w-full sm:w-auto border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10",
+                asChild: true,
+                children: /* @__PURE__ */ jsxRuntime.jsxs("a", { href: secondaryUrl, children: [
+                  secondaryLabel,
+                  /* @__PURE__ */ jsxRuntime.jsx(lucideReact.ArrowRight, { className: "h-5 w-5", "aria-hidden": "true" })
+                ] })
+              }
+            )
+          ] })
+        ] })
+      }
+    );
+  }
+);
+CtaSection.displayName = "CtaSection";
+var ViewToggle = React5__namespace.forwardRef(
+  ({ viewMode, onViewModeChange, gridLabel = "\uADF8\uB9AC\uB4DC \uBDF0", listLabel = "\uB9AC\uC2A4\uD2B8 \uBDF0", className }, ref) => {
+    return /* @__PURE__ */ jsxRuntime.jsxs("div", { ref, className: cn("flex items-center border rounded-md", className), role: "group", "aria-label": "\uBDF0 \uBAA8\uB4DC \uC120\uD0DD", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(
+        Button,
+        {
+          variant: viewMode === "grid" ? "default" : "ghost",
+          size: "icon",
+          onClick: () => onViewModeChange("grid"),
+          className: "rounded-none rounded-l-md h-10 w-10",
+          "aria-label": gridLabel,
+          "aria-pressed": viewMode === "grid",
+          children: /* @__PURE__ */ jsxRuntime.jsx(lucideReact.Grid3X3, { className: "h-4 w-4", "aria-hidden": "true" })
+        }
+      ),
+      /* @__PURE__ */ jsxRuntime.jsx(
+        Button,
+        {
+          variant: viewMode === "list" ? "default" : "ghost",
+          size: "icon",
+          onClick: () => onViewModeChange("list"),
+          className: "rounded-none rounded-r-md h-10 w-10",
+          "aria-label": listLabel,
+          "aria-pressed": viewMode === "list",
+          children: /* @__PURE__ */ jsxRuntime.jsx(lucideReact.LayoutGrid, { className: "h-4 w-4", "aria-hidden": "true" })
+        }
+      )
+    ] });
+  }
+);
+ViewToggle.displayName = "ViewToggle";
+var defaultLanguages = [
+  { code: "ko", label: "\uD55C\uAD6D\uC5B4" },
+  { code: "en", label: "English" }
+];
+var LanguageSelector = React5__namespace.forwardRef(
+  ({ currentLocale, onLocaleChange, languages = defaultLanguages, className }, ref) => {
+    const currentLanguage = languages.find((lang) => lang.code === currentLocale);
+    return /* @__PURE__ */ jsxRuntime.jsxs(DropdownMenu, { children: [
+      /* @__PURE__ */ jsxRuntime.jsx(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ jsxRuntime.jsxs(
+        Button,
+        {
+          ref,
+          variant: "outline",
+          size: "sm",
+          className: cn("h-10 flex items-center gap-1", className),
+          children: [
+            /* @__PURE__ */ jsxRuntime.jsx(lucideReact.Globe, { className: "h-4 w-4" }),
+            /* @__PURE__ */ jsxRuntime.jsx("span", { children: currentLanguage?.label || "\uC5B8\uC5B4" })
+          ]
+        }
+      ) }),
+      /* @__PURE__ */ jsxRuntime.jsx(DropdownMenuContent, { align: "end", children: languages.map((lang) => /* @__PURE__ */ jsxRuntime.jsx(
+        DropdownMenuItem,
+        {
+          onClick: () => onLocaleChange(lang.code),
+          className: cn(
+            "cursor-pointer",
+            currentLocale === lang.code && "bg-accent"
+          ),
+          children: lang.label
+        },
+        lang.code
+      )) })
+    ] });
+  }
+);
+LanguageSelector.displayName = "LanguageSelector";
+var Header = React5__namespace.forwardRef(
+  ({
+    brandName = "Recorda",
+    subTitle = "Service Hub",
+    searchValue,
+    onSearchChange,
+    searchPlaceholder = "\uAC80\uC0C9...",
+    viewMode,
+    onViewModeChange,
+    currentLocale,
+    onLocaleChange,
+    className
+  }, ref) => {
+    return /* @__PURE__ */ jsxRuntime.jsxs(
+      "header",
+      {
+        ref,
+        className: cn("flex items-center justify-between", className),
+        children: [
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center gap-4", children: [
+            /* @__PURE__ */ jsxRuntime.jsx("h1", { className: "text-2xl font-bold", children: brandName }),
+            subTitle && /* @__PURE__ */ jsxRuntime.jsx("h2", { className: "text-xl text-muted-foreground", children: subTitle })
+          ] }),
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center gap-3", children: [
+            /* @__PURE__ */ jsxRuntime.jsx(
+              SearchBar,
+              {
+                value: searchValue,
+                onChange: onSearchChange,
+                placeholder: searchPlaceholder,
+                className: "w-64"
+              }
+            ),
+            /* @__PURE__ */ jsxRuntime.jsx(ViewToggle, { viewMode, onViewModeChange }),
+            /* @__PURE__ */ jsxRuntime.jsx(
+              LanguageSelector,
+              {
+                currentLocale,
+                onLocaleChange
+              }
+            )
+          ] })
+        ]
+      }
+    );
+  }
+);
+Header.displayName = "Header";
+var Footer = React5__namespace.forwardRef(
+  ({
+    brandName = "Brand",
+    copyright = "All rights reserved.",
+    links = [
+      { label: "\uC774\uC6A9\uC57D\uAD00", href: "/terms" },
+      { label: "\uAC1C\uC778\uC815\uBCF4\uCC98\uB9AC\uBC29\uCE68", href: "/privacy" },
+      { label: "\uBB38\uC758\uD558\uAE30", href: "/contact" }
+    ],
+    navAriaLabel = "Footer links",
+    className
+  }, ref) => {
+    const currentYear = (/* @__PURE__ */ new Date()).getFullYear();
+    return /* @__PURE__ */ jsxRuntime.jsx(
+      "footer",
+      {
+        ref,
+        className: cn("border-t py-3 bg-background", className),
+        role: "contentinfo",
+        children: /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "container flex flex-col sm:flex-row justify-between items-center px-4", children: [
+          /* @__PURE__ */ jsxRuntime.jsxs("p", { className: "text-xs text-muted-foreground", children: [
+            "\xA9 ",
+            currentYear,
+            " ",
+            brandName,
+            ". ",
+            copyright
+          ] }),
+          links.length > 0 && /* @__PURE__ */ jsxRuntime.jsx("nav", { className: "flex space-x-6 mt-2 sm:mt-0", "aria-label": navAriaLabel, children: links.map((link) => /* @__PURE__ */ jsxRuntime.jsx(
+            Button,
+            {
+              variant: "link",
+              size: "sm",
+              className: "text-xs text-muted-foreground p-0 h-auto",
+              asChild: true,
+              children: /* @__PURE__ */ jsxRuntime.jsx("a", { href: link.href, children: link.label })
+            },
+            link.href
+          )) })
+        ] })
+      }
+    );
+  }
+);
+Footer.displayName = "Footer";
+var FeaturesSection = React5__namespace.forwardRef(
+  ({
+    title = "\uC8FC\uC694 \uAE30\uB2A5",
+    subtitle = "\uB2E4\uC591\uD55C \uAE30\uB2A5\uC744 \uC0B4\uD3B4\uBCF4\uC138\uC694",
+    features,
+    ariaLabelledBy = "features-title",
+    className
+  }, ref) => {
+    return /* @__PURE__ */ jsxRuntime.jsx(
+      "section",
+      {
+        ref,
+        className: cn("py-20 md:py-28 px-4 bg-muted/30", className),
+        "aria-labelledby": ariaLabelledBy,
+        children: /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "container mx-auto max-w-6xl", children: [
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "text-center mb-16", children: [
+            /* @__PURE__ */ jsxRuntime.jsx("h2", { id: ariaLabelledBy, className: "text-3xl md:text-4xl font-bold mb-4", children: title }),
+            /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-lg text-muted-foreground max-w-2xl mx-auto", children: subtitle })
+          ] }),
+          /* @__PURE__ */ jsxRuntime.jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8", children: features.map((feature) => {
+            const IconComponent = feature.icon;
+            return /* @__PURE__ */ jsxRuntime.jsxs(
+              "div",
+              {
+                className: "bg-card rounded-xl border p-6 hover:shadow-md transition-shadow",
+                children: [
+                  /* @__PURE__ */ jsxRuntime.jsx("div", { className: "flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 text-primary mb-4", children: /* @__PURE__ */ jsxRuntime.jsx(IconComponent, { className: "h-6 w-6", "aria-hidden": "true" }) }),
+                  /* @__PURE__ */ jsxRuntime.jsx("h3", { className: "text-lg font-semibold mb-2", children: feature.title }),
+                  /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-muted-foreground", children: feature.description })
+                ]
+              },
+              feature.id
+            );
+          }) })
+        ] })
+      }
+    );
+  }
+);
+FeaturesSection.displayName = "FeaturesSection";
+function ItemDetailsDialogInner({
+  open,
+  onOpenChange,
+  item,
+  closeLabel = "\uB2EB\uAE30",
+  featuresTitle = "\uC8FC\uC694 \uAE30\uB2A5",
+  badgesTitle = "\uC9C0\uC6D0 \uD615\uC2DD",
+  className
+}, ref) {
+  if (!item) return null;
+  const IconComponent = item.icon;
+  const handleCta = () => {
+    if (item.ctaUrl) {
+      window.open(item.ctaUrl, "_blank", "noopener,noreferrer");
+    }
+  };
+  return /* @__PURE__ */ jsxRuntime.jsx(Dialog, { open, onOpenChange, children: /* @__PURE__ */ jsxRuntime.jsxs(
+    DialogContent,
+    {
+      ref,
+      className: cn("sm:max-w-[600px] max-h-[90vh] overflow-y-auto", className),
+      children: [
+        /* @__PURE__ */ jsxRuntime.jsx(DialogHeader, { children: /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-start gap-3", children: [
+          /* @__PURE__ */ jsxRuntime.jsx("div", { className: "flex items-center justify-center w-12 h-12 rounded-lg border bg-background", "aria-hidden": "true", children: /* @__PURE__ */ jsxRuntime.jsx(IconComponent, { className: "h-6 w-6 text-foreground" }) }),
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex-1", children: [
+            /* @__PURE__ */ jsxRuntime.jsx(DialogTitle, { className: "text-xl", children: item.title }),
+            /* @__PURE__ */ jsxRuntime.jsx(DialogDescription, { className: "mt-1.5", children: item.description }),
+            item.categories && item.categories.length > 0 && /* @__PURE__ */ jsxRuntime.jsx("div", { className: "flex flex-wrap gap-2 mt-3", children: item.categories.map((category) => /* @__PURE__ */ jsxRuntime.jsx(Badge, { variant: "outline", children: category.label }, category.id)) })
+          ] })
+        ] }) }),
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "py-2", children: [
+          item.features && item.features.length > 0 && /* @__PURE__ */ jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [
+            /* @__PURE__ */ jsxRuntime.jsx(Separator2, { className: "my-4" }),
+            /* @__PURE__ */ jsxRuntime.jsx("div", { className: "space-y-4", children: /* @__PURE__ */ jsxRuntime.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntime.jsx("h4", { className: "text-sm font-medium mb-3", children: featuresTitle }),
+              /* @__PURE__ */ jsxRuntime.jsx("ul", { className: "space-y-2", children: item.features.map((feature, index) => /* @__PURE__ */ jsxRuntime.jsxs("li", { className: "flex items-start gap-2 text-sm", children: [
+                /* @__PURE__ */ jsxRuntime.jsx(lucideReact.CheckSquare, { className: "h-4 w-4 text-primary mt-0.5 shrink-0", "aria-hidden": "true" }),
+                /* @__PURE__ */ jsxRuntime.jsx("span", { children: feature })
+              ] }, index)) })
+            ] }) })
+          ] }),
+          item.badges && item.badges.length > 0 && /* @__PURE__ */ jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [
+            /* @__PURE__ */ jsxRuntime.jsx(Separator2, { className: "my-4" }),
+            /* @__PURE__ */ jsxRuntime.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntime.jsx("h4", { className: "text-sm font-medium mb-3", children: badgesTitle }),
+              /* @__PURE__ */ jsxRuntime.jsx("div", { className: "flex flex-wrap gap-2", children: item.badges.map((badge) => /* @__PURE__ */ jsxRuntime.jsx(Badge, { variant: "secondary", children: badge }, badge)) })
+            ] })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntime.jsxs(DialogFooter, { className: "flex sm:justify-between gap-2", children: [
+          /* @__PURE__ */ jsxRuntime.jsx(Button, { variant: "outline", onClick: () => onOpenChange(false), children: closeLabel }),
+          item.ctaUrl && item.ctaLabel && /* @__PURE__ */ jsxRuntime.jsxs(Button, { onClick: handleCta, className: "gap-1.5", "aria-label": `${item.title} ${item.ctaLabel} (\uC0C8 \uCC3D)`, children: [
+            item.ctaLabel,
+            /* @__PURE__ */ jsxRuntime.jsx(lucideReact.ExternalLink, { className: "h-4 w-4", "aria-hidden": "true" })
+          ] })
+        ] })
+      ]
+    }
+  ) });
+}
+var ItemDetailsDialog = React5__namespace.forwardRef(ItemDetailsDialogInner);
+function ItemCardInner({
+  item,
+  mode,
+  onDetailClick,
+  onCtaClick,
+  detailLabel = "\uC0C1\uC138",
+  defaultCtaLabel = "\uC2DC\uC791",
+  className
+}, ref) {
+  const IconComponent = item.icon;
+  const handleDetailClick = () => {
+    onDetailClick?.(item);
+  };
+  const handleCtaClick = () => {
+    if (item.ctaUrl) {
+      window.open(item.ctaUrl, "_blank", "noopener,noreferrer");
+    }
+    onCtaClick?.(item);
+  };
+  if (mode === "grid") {
+    return /* @__PURE__ */ jsxRuntime.jsxs(
+      Card,
+      {
+        ref,
+        className: cn(
+          "overflow-hidden transition-all hover:shadow-md hover:border-gray-300 h-full flex flex-col",
+          className
+        ),
+        children: [
+          /* @__PURE__ */ jsxRuntime.jsx(CardHeader, { className: "pb-2 pt-4 px-5", children: /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center gap-3", children: [
+            /* @__PURE__ */ jsxRuntime.jsx("div", { className: "flex items-center justify-center w-10 h-10 rounded-lg border bg-background", "aria-hidden": "true", children: /* @__PURE__ */ jsxRuntime.jsx(IconComponent, { className: "h-5 w-5 text-foreground" }) }),
+            /* @__PURE__ */ jsxRuntime.jsx(CardTitle, { className: "text-base font-medium", children: item.title })
+          ] }) }),
+          /* @__PURE__ */ jsxRuntime.jsx(CardContent, { className: "pb-2 pt-1 px-5 flex-grow", children: /* @__PURE__ */ jsxRuntime.jsx(CardDescription, { className: "text-sm line-clamp-2", children: item.description }) }),
+          /* @__PURE__ */ jsxRuntime.jsxs(CardFooter, { className: "flex justify-between pt-4 px-5 pb-5", children: [
+            /* @__PURE__ */ jsxRuntime.jsx(
+              Button,
+              {
+                variant: "ghost",
+                size: "sm",
+                className: "text-sm text-muted-foreground h-8 px-2",
+                onClick: handleDetailClick,
+                "aria-label": `${item.title} ${detailLabel}`,
+                children: detailLabel
+              }
+            ),
+            /* @__PURE__ */ jsxRuntime.jsx(
+              Button,
+              {
+                variant: "default",
+                size: "sm",
+                className: "text-sm h-8 px-4",
+                onClick: handleCtaClick,
+                "aria-label": `${item.title} ${item.ctaLabel || defaultCtaLabel}`,
+                children: item.ctaLabel || defaultCtaLabel
+              }
+            )
+          ] })
+        ]
+      }
+    );
+  }
+  return /* @__PURE__ */ jsxRuntime.jsxs(
+    "article",
+    {
+      ref,
+      className: cn(
+        "flex flex-row items-center justify-between p-4 rounded-lg border bg-card hover:shadow-sm hover:border-gray-300 transition-all",
+        className
+      ),
+      children: [
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center gap-3 flex-1 min-w-0", children: [
+          /* @__PURE__ */ jsxRuntime.jsx("div", { className: "flex items-center justify-center w-10 h-10 rounded-lg border bg-background shrink-0", "aria-hidden": "true", children: /* @__PURE__ */ jsxRuntime.jsx(IconComponent, { className: "h-5 w-5 text-foreground" }) }),
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex-1 min-w-0", children: [
+            /* @__PURE__ */ jsxRuntime.jsx("h3", { className: "font-medium text-base truncate", children: item.title }),
+            /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-sm text-muted-foreground line-clamp-1", children: item.description })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center gap-2 ml-4", children: [
+          /* @__PURE__ */ jsxRuntime.jsx(
+            Button,
+            {
+              variant: "ghost",
+              size: "sm",
+              className: "text-sm text-muted-foreground h-8 px-2",
+              onClick: handleDetailClick,
+              "aria-label": `${item.title} ${detailLabel}`,
+              children: detailLabel
+            }
+          ),
+          /* @__PURE__ */ jsxRuntime.jsx(
+            Button,
+            {
+              variant: "default",
+              size: "sm",
+              className: "text-sm h-8 px-4",
+              onClick: handleCtaClick,
+              "aria-label": `${item.title} ${item.ctaLabel || defaultCtaLabel}`,
+              children: item.ctaLabel || defaultCtaLabel
+            }
+          )
+        ] })
+      ]
+    }
+  );
+}
+var ItemCard = React5__namespace.forwardRef(ItemCardInner);
+function ItemsSectionInner({
+  title = "\uC11C\uBE44\uC2A4 \uB458\uB7EC\uBCF4\uAE30",
+  subtitle = "\uB2E4\uC591\uD55C \uAE30\uB2A5\uC744 \uC0B4\uD3B4\uBCF4\uC138\uC694",
+  items,
+  viewMode = "grid",
+  onItemDetailClick,
+  onItemCtaClick,
+  detailLabel = "\uC0C1\uC138",
+  defaultCtaLabel = "\uC2DC\uC791",
+  ariaLabelledBy = "items-title",
+  className
+}, ref) {
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    "section",
+    {
+      ref,
+      className: cn("py-20 md:py-28 px-4", className),
+      "aria-labelledby": ariaLabelledBy,
+      children: /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "container mx-auto max-w-6xl", children: [
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "text-center mb-16", children: [
+          /* @__PURE__ */ jsxRuntime.jsx("h2", { id: ariaLabelledBy, className: "text-3xl md:text-4xl font-bold mb-4", children: title }),
+          /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-lg text-muted-foreground max-w-2xl mx-auto", children: subtitle })
+        ] }),
+        viewMode === "grid" ? /* @__PURE__ */ jsxRuntime.jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6", children: items.map((item) => /* @__PURE__ */ jsxRuntime.jsx(
+          ItemCard,
+          {
+            item,
+            mode: "grid",
+            onDetailClick: onItemDetailClick,
+            onCtaClick: onItemCtaClick,
+            detailLabel,
+            defaultCtaLabel
+          },
+          item.id
+        )) }) : /* @__PURE__ */ jsxRuntime.jsx("div", { className: "space-y-2", children: items.map((item) => /* @__PURE__ */ jsxRuntime.jsx(
+          ItemCard,
+          {
+            item,
+            mode: "list",
+            onDetailClick: onItemDetailClick,
+            onCtaClick: onItemCtaClick,
+            detailLabel,
+            defaultCtaLabel
+          },
+          item.id
+        )) })
+      ] })
+    }
+  );
+}
+var ItemsSection = React5__namespace.forwardRef(ItemsSectionInner);
 
 exports.Card = Card;
 exports.CardContent = CardContent;
@@ -587,6 +1132,13 @@ exports.CardDescription = CardDescription;
 exports.CardFooter = CardFooter;
 exports.CardHeader = CardHeader;
 exports.CardTitle = CardTitle;
+exports.CtaSection = CtaSection;
+exports.FeaturesSection = FeaturesSection;
+exports.Footer = Footer;
+exports.Header = Header;
+exports.HeroSection = HeroSection;
+exports.ItemDetailsDialog = ItemDetailsDialog;
+exports.ItemsSection = ItemsSection;
 exports.MobileMenu = MobileMenu;
 exports.Sidebar = Sidebar;
 //# sourceMappingURL=index.js.map
