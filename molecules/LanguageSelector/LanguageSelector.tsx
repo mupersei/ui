@@ -42,10 +42,10 @@ const LanguageSelector = React.forwardRef<HTMLButtonElement, LanguageSelectorPro
             ref={ref}
             variant="outline"
             size="sm"
-            className={cn('h-10 flex items-center gap-1 focus-visible:ring-0 focus-visible:ring-offset-0', className)}
+            className={cn('h-8 sm:h-10 flex items-center gap-1 focus-visible:ring-0 focus-visible:ring-offset-0', className)}
           >
             <Globe className="h-4 w-4" />
-            <span>{currentLanguage?.label || '언어'}</span>
+            <span className="hidden sm:inline">{currentLanguage?.label || '언어'}</span>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">

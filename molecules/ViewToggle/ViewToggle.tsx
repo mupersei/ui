@@ -24,21 +24,21 @@ const ViewToggle = React.forwardRef<HTMLDivElement, ViewToggleProps>(
           variant={viewMode === 'grid' ? 'default' : 'ghost'}
           size="icon"
           onClick={() => onViewModeChange('grid')}
-          className="rounded-none rounded-l-md h-10 w-10"
+          className="rounded-none rounded-l-md h-8 w-8 sm:h-10 sm:w-10"
           aria-label={gridLabel}
           aria-pressed={viewMode === 'grid'}
         >
-          <Grid3X3 className="h-4 w-4" aria-hidden="true" />
+          <Grid3X3 className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden="true" />
         </Button>
         <Button
           variant={viewMode === 'list' ? 'default' : 'ghost'}
           size="icon"
           onClick={() => onViewModeChange('list')}
-          className="rounded-none rounded-r-md h-10 w-10"
+          className="rounded-none rounded-r-md h-8 w-8 sm:h-10 sm:w-10"
           aria-label={listLabel}
           aria-pressed={viewMode === 'list'}
         >
-          <LayoutGrid className="h-4 w-4" aria-hidden="true" />
+          <LayoutGrid className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden="true" />
         </Button>
       </div>
     )

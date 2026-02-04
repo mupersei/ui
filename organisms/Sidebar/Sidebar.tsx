@@ -41,7 +41,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
     return (
       <aside
         ref={ref}
-        className={cn('w-56 shrink-0', className)}
+        className={cn('hidden md:block w-56 shrink-0', className)}
         aria-label="카테고리 네비게이션"
       >
         <div className="bg-card rounded-lg border shadow-sm p-4">

@@ -69,15 +69,15 @@ function ItemDetailsDialogInner<T extends ItemDetailsItem>(
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         ref={ref}
-        className={cn('sm:max-w-[600px] max-h-[90vh] overflow-y-auto', className)}
+        className={cn('p-4 sm:p-6 sm:max-w-[600px] max-h-[90vh] overflow-y-auto', className)}
       >
         <DialogHeader>
-          <div className="flex items-start gap-3">
-            <div className="flex items-center justify-center w-12 h-12 rounded-lg border bg-background" aria-hidden="true">
-              <IconComponent className="h-6 w-6 text-foreground" />
+          <div className="flex items-start gap-2 sm:gap-3">
+            <div className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg border bg-background" aria-hidden="true">
+              <IconComponent className="h-5 w-5 sm:h-6 sm:w-6 text-foreground" />
             </div>
             <div className="flex-1">
-              <DialogTitle className="text-xl">{item.title}</DialogTitle>
+              <DialogTitle className="text-lg sm:text-xl">{item.title}</DialogTitle>
               <DialogDescription className="mt-1.5">
                 {item.description}
               </DialogDescription>

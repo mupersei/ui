@@ -39,20 +39,23 @@ const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
     return (
       <header
         ref={ref}
-        className={cn('flex items-center justify-between', className)}
+        className={cn(
+          'flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between',
+          className
+        )}
       >
-        <div className="flex items-center gap-4">
-          <h1 className="text-2xl font-bold">{brandName}</h1>
+        <div className="flex items-center gap-2 sm:gap-4">
+          <h1 className="text-xl sm:text-2xl font-bold">{brandName}</h1>
           {subTitle && (
-            <h2 className="text-xl text-muted-foreground">{subTitle}</h2>
+            <h2 className="text-base sm:text-xl text-muted-foreground">{subTitle}</h2>
           )}
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <SearchBar
             value={searchValue}
             onChange={onSearchChange}
             placeholder={searchPlaceholder}
-            className="w-64"
+            className="flex-1 sm:flex-none sm:w-64"
           />
           <ViewToggle viewMode={viewMode} onViewModeChange={onViewModeChange} />
           <LanguageSelector
