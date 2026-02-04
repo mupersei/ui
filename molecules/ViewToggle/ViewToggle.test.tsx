@@ -97,4 +97,24 @@ describe('ViewToggle', () => {
       expect(container).toHaveClass('custom-toggle')
     })
   })
+
+  describe('반응형 디자인', () => {
+    it('버튼에 반응형 크기가 적용되어야 함', () => {
+      render(<ViewToggle {...defaultProps} />)
+      const gridButton = screen.getByRole('button', { name: '그리드 뷰' })
+      const listButton = screen.getByRole('button', { name: '리스트 뷰' })
+
+      expect(gridButton).toHaveClass('h-8', 'w-8', 'sm:h-10', 'sm:w-10')
+      expect(listButton).toHaveClass('h-8', 'w-8', 'sm:h-10', 'sm:w-10')
+    })
+
+    it('아이콘에 반응형 크기가 적용되어야 함', () => {
+      render(<ViewToggle {...defaultProps} />)
+      const icons = screen.getByRole('group').querySelectorAll('svg')
+
+      icons.forEach((icon) => {
+        expect(icon).toHaveClass('h-3.5', 'w-3.5', 'sm:h-4', 'sm:w-4')
+      })
+    })
+  })
 })

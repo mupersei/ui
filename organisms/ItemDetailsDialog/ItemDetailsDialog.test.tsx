@@ -249,4 +249,34 @@ describe('ItemDetailsDialog', () => {
       })
     })
   })
+
+  describe('반응형 디자인', () => {
+    it('반응형 패딩이 적용되어야 함', async () => {
+      render(<ItemDetailsDialog open={true} onOpenChange={jest.fn()} item={mockItem} />)
+
+      await waitFor(() => {
+        const dialog = screen.getByRole('dialog')
+        expect(dialog).toHaveClass('p-4', 'sm:p-6')
+      })
+    })
+
+    it('반응형 최대 너비가 적용되어야 함', async () => {
+      render(<ItemDetailsDialog open={true} onOpenChange={jest.fn()} item={mockItem} />)
+
+      await waitFor(() => {
+        const dialog = screen.getByRole('dialog')
+        expect(dialog).toHaveClass('sm:max-w-[600px]')
+      })
+    })
+
+    it('아이콘 컨테이너에 반응형 크기가 적용되어야 함', async () => {
+      render(<ItemDetailsDialog open={true} onOpenChange={jest.fn()} item={mockItem} />)
+
+      await waitFor(() => {
+        const dialog = screen.getByRole('dialog')
+        const iconContainer = dialog.querySelector('[aria-hidden="true"]')
+        expect(iconContainer).toHaveClass('w-10', 'h-10', 'sm:w-12', 'sm:h-12')
+      })
+    })
+  })
 })

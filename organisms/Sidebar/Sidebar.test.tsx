@@ -123,4 +123,18 @@ describe('Sidebar', () => {
       expect(screen.getByRole('complementary')).toHaveClass('custom-sidebar')
     })
   })
+
+  describe('반응형 디자인', () => {
+    it('모바일에서 숨김 처리되어야 함', () => {
+      render(<Sidebar {...defaultProps} />)
+      const sidebar = screen.getByRole('complementary')
+      expect(sidebar).toHaveClass('hidden', 'md:block')
+    })
+
+    it('고정 너비가 적용되어야 함', () => {
+      render(<Sidebar {...defaultProps} />)
+      const sidebar = screen.getByRole('complementary')
+      expect(sidebar).toHaveClass('w-56', 'shrink-0')
+    })
+  })
 })

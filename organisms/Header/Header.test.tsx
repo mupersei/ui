@@ -95,4 +95,37 @@ describe('Header', () => {
       expect(screen.getByRole('banner')).toHaveClass('custom-header')
     })
   })
+
+  describe('반응형 디자인', () => {
+    it('모바일 우선 레이아웃 클래스가 적용되어야 함', () => {
+      render(<Header {...defaultProps} />)
+      const header = screen.getByRole('banner')
+      expect(header).toHaveClass('flex', 'flex-col', 'gap-4')
+    })
+
+    it('태블릿 이상에서 가로 레이아웃 클래스가 적용되어야 함', () => {
+      render(<Header {...defaultProps} />)
+      const header = screen.getByRole('banner')
+      expect(header).toHaveClass('sm:flex-row', 'sm:items-center', 'sm:justify-between')
+    })
+
+    it('브랜드 이름에 반응형 텍스트 크기가 적용되어야 함', () => {
+      render(<Header {...defaultProps} />)
+      const brandName = screen.getByRole('heading', { level: 1 })
+      expect(brandName).toHaveClass('text-xl', 'sm:text-2xl')
+    })
+
+    it('서브타이틀에 반응형 텍스트 크기가 적용되어야 함', () => {
+      render(<Header {...defaultProps} />)
+      const subTitle = screen.getByRole('heading', { level: 2 })
+      expect(subTitle).toHaveClass('text-base', 'sm:text-xl')
+    })
+
+    it('검색바에 반응형 너비가 적용되어야 함', () => {
+      render(<Header {...defaultProps} />)
+      const searchInput = screen.getByPlaceholderText('검색...')
+      const searchBar = searchInput.closest('div')
+      expect(searchBar).toHaveClass('flex-1', 'sm:flex-none', 'sm:w-64')
+    })
+  })
 })

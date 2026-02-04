@@ -404,7 +404,7 @@ var Sidebar = React5.forwardRef(
       "aside",
       {
         ref,
-        className: cn("w-56 shrink-0", className),
+        className: cn("hidden md:block w-56 shrink-0", className),
         "aria-label": "\uCE74\uD14C\uACE0\uB9AC \uB124\uBE44\uAC8C\uC774\uC158",
         children: /* @__PURE__ */ jsxs("div", { className: "bg-card rounded-lg border shadow-sm p-4", children: [
           /* @__PURE__ */ jsx("h3", { id: "sidebar-category-heading", className: "font-medium mb-3 text-sm text-muted-foreground", children: categoryTitle }),
@@ -688,10 +688,10 @@ var ViewToggle = React5.forwardRef(
           variant: viewMode === "grid" ? "default" : "ghost",
           size: "icon",
           onClick: () => onViewModeChange("grid"),
-          className: "rounded-none rounded-l-md h-10 w-10",
+          className: "rounded-none rounded-l-md h-8 w-8 sm:h-10 sm:w-10",
           "aria-label": gridLabel,
           "aria-pressed": viewMode === "grid",
-          children: /* @__PURE__ */ jsx(Grid3X3, { className: "h-4 w-4", "aria-hidden": "true" })
+          children: /* @__PURE__ */ jsx(Grid3X3, { className: "h-3.5 w-3.5 sm:h-4 sm:w-4", "aria-hidden": "true" })
         }
       ),
       /* @__PURE__ */ jsx(
@@ -700,10 +700,10 @@ var ViewToggle = React5.forwardRef(
           variant: viewMode === "list" ? "default" : "ghost",
           size: "icon",
           onClick: () => onViewModeChange("list"),
-          className: "rounded-none rounded-r-md h-10 w-10",
+          className: "rounded-none rounded-r-md h-8 w-8 sm:h-10 sm:w-10",
           "aria-label": listLabel,
           "aria-pressed": viewMode === "list",
-          children: /* @__PURE__ */ jsx(LayoutGrid, { className: "h-4 w-4", "aria-hidden": "true" })
+          children: /* @__PURE__ */ jsx(LayoutGrid, { className: "h-3.5 w-3.5 sm:h-4 sm:w-4", "aria-hidden": "true" })
         }
       )
     ] });
@@ -724,10 +724,10 @@ var LanguageSelector = React5.forwardRef(
           ref,
           variant: "outline",
           size: "sm",
-          className: cn("h-10 flex items-center gap-1 focus-visible:ring-0 focus-visible:ring-offset-0", className),
+          className: cn("h-8 sm:h-10 flex items-center gap-1 focus-visible:ring-0 focus-visible:ring-offset-0", className),
           children: [
             /* @__PURE__ */ jsx(Globe, { className: "h-4 w-4" }),
-            /* @__PURE__ */ jsx("span", { children: currentLanguage?.label || "\uC5B8\uC5B4" })
+            /* @__PURE__ */ jsx("span", { className: "hidden sm:inline", children: currentLanguage?.label || "\uC5B8\uC5B4" })
           ]
         }
       ) }),
@@ -764,20 +764,23 @@ var Header = React5.forwardRef(
       "header",
       {
         ref,
-        className: cn("flex items-center justify-between", className),
+        className: cn(
+          "flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between",
+          className
+        ),
         children: [
-          /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-4", children: [
-            /* @__PURE__ */ jsx("h1", { className: "text-2xl font-bold", children: brandName }),
-            subTitle && /* @__PURE__ */ jsx("h2", { className: "text-xl text-muted-foreground", children: subTitle })
+          /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 sm:gap-4", children: [
+            /* @__PURE__ */ jsx("h1", { className: "text-xl sm:text-2xl font-bold", children: brandName }),
+            subTitle && /* @__PURE__ */ jsx("h2", { className: "text-base sm:text-xl text-muted-foreground", children: subTitle })
           ] }),
-          /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
+          /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 sm:gap-3", children: [
             /* @__PURE__ */ jsx(
               SearchBar,
               {
                 value: searchValue,
                 onChange: onSearchChange,
                 placeholder: searchPlaceholder,
-                className: "w-64"
+                className: "flex-1 sm:flex-none sm:w-64"
               }
             ),
             /* @__PURE__ */ jsx(ViewToggle, { viewMode, onViewModeChange }),
@@ -900,12 +903,12 @@ function ItemDetailsDialogInner({
     DialogContent,
     {
       ref,
-      className: cn("sm:max-w-[600px] max-h-[90vh] overflow-y-auto", className),
+      className: cn("p-4 sm:p-6 sm:max-w-[600px] max-h-[90vh] overflow-y-auto", className),
       children: [
-        /* @__PURE__ */ jsx(DialogHeader, { children: /* @__PURE__ */ jsxs("div", { className: "flex items-start gap-3", children: [
-          /* @__PURE__ */ jsx("div", { className: "flex items-center justify-center w-12 h-12 rounded-lg border bg-background", "aria-hidden": "true", children: /* @__PURE__ */ jsx(IconComponent, { className: "h-6 w-6 text-foreground" }) }),
+        /* @__PURE__ */ jsx(DialogHeader, { children: /* @__PURE__ */ jsxs("div", { className: "flex items-start gap-2 sm:gap-3", children: [
+          /* @__PURE__ */ jsx("div", { className: "flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg border bg-background", "aria-hidden": "true", children: /* @__PURE__ */ jsx(IconComponent, { className: "h-5 w-5 sm:h-6 sm:w-6 text-foreground" }) }),
           /* @__PURE__ */ jsxs("div", { className: "flex-1", children: [
-            /* @__PURE__ */ jsx(DialogTitle, { className: "text-xl", children: item.title }),
+            /* @__PURE__ */ jsx(DialogTitle, { className: "text-lg sm:text-xl", children: item.title }),
             /* @__PURE__ */ jsx(DialogDescription, { className: "mt-1.5", children: item.description }),
             item.categories && item.categories.length > 0 && /* @__PURE__ */ jsx("div", { className: "flex flex-wrap gap-2 mt-3", children: item.categories.map((category) => /* @__PURE__ */ jsx(Badge, { variant: "outline", children: category.label }, category.id)) })
           ] })

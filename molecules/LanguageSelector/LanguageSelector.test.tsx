@@ -90,4 +90,18 @@ describe('LanguageSelector', () => {
       expect(button).toHaveClass('custom-selector')
     })
   })
+
+  describe('반응형 디자인', () => {
+    it('버튼에 반응형 높이가 적용되어야 함', () => {
+      render(<LanguageSelector {...defaultProps} />)
+      const button = screen.getByRole('button')
+      expect(button).toHaveClass('h-8', 'sm:h-10')
+    })
+
+    it('언어 텍스트가 모바일에서 숨겨지고 태블릿 이상에서 표시되어야 함', () => {
+      render(<LanguageSelector {...defaultProps} />)
+      const languageText = screen.getByText('한국어')
+      expect(languageText).toHaveClass('hidden', 'sm:inline')
+    })
+  })
 })

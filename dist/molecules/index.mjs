@@ -352,10 +352,10 @@ var ViewToggle = React4.forwardRef(
           variant: viewMode === "grid" ? "default" : "ghost",
           size: "icon",
           onClick: () => onViewModeChange("grid"),
-          className: "rounded-none rounded-l-md h-10 w-10",
+          className: "rounded-none rounded-l-md h-8 w-8 sm:h-10 sm:w-10",
           "aria-label": gridLabel,
           "aria-pressed": viewMode === "grid",
-          children: /* @__PURE__ */ jsx(Grid3X3, { className: "h-4 w-4", "aria-hidden": "true" })
+          children: /* @__PURE__ */ jsx(Grid3X3, { className: "h-3.5 w-3.5 sm:h-4 sm:w-4", "aria-hidden": "true" })
         }
       ),
       /* @__PURE__ */ jsx(
@@ -364,10 +364,10 @@ var ViewToggle = React4.forwardRef(
           variant: viewMode === "list" ? "default" : "ghost",
           size: "icon",
           onClick: () => onViewModeChange("list"),
-          className: "rounded-none rounded-r-md h-10 w-10",
+          className: "rounded-none rounded-r-md h-8 w-8 sm:h-10 sm:w-10",
           "aria-label": listLabel,
           "aria-pressed": viewMode === "list",
-          children: /* @__PURE__ */ jsx(LayoutGrid, { className: "h-4 w-4", "aria-hidden": "true" })
+          children: /* @__PURE__ */ jsx(LayoutGrid, { className: "h-3.5 w-3.5 sm:h-4 sm:w-4", "aria-hidden": "true" })
         }
       )
     ] });
@@ -388,10 +388,10 @@ var LanguageSelector = React4.forwardRef(
           ref,
           variant: "outline",
           size: "sm",
-          className: cn("h-10 flex items-center gap-1 focus-visible:ring-0 focus-visible:ring-offset-0", className),
+          className: cn("h-8 sm:h-10 flex items-center gap-1 focus-visible:ring-0 focus-visible:ring-offset-0", className),
           children: [
             /* @__PURE__ */ jsx(Globe, { className: "h-4 w-4" }),
-            /* @__PURE__ */ jsx("span", { children: currentLanguage?.label || "\uC5B8\uC5B4" })
+            /* @__PURE__ */ jsx("span", { className: "hidden sm:inline", children: currentLanguage?.label || "\uC5B8\uC5B4" })
           ]
         }
       ) }),
