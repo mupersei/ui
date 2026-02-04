@@ -162,4 +162,13 @@ declare const ItemsSection: <T extends ItemCardItem>(props: ItemsSectionProps<T>
     ref?: React.ForwardedRef<HTMLElement>;
 }) => React.ReactElement;
 
-export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, type Category$1 as Category, CtaSection, type CtaSectionProps, type Feature, FeaturesSection, type FeaturesSectionProps, Footer, type FooterLink, type FooterProps, Header, type HeaderProps, HeroSection, type HeroSectionProps, type ItemDetailsCategory, ItemDetailsDialog, type ItemDetailsDialogProps, type ItemDetailsItem, ItemsSection, type ItemsSectionProps, MobileMenu, type MobileMenuProps, Sidebar, type SidebarProps };
+interface PageLayoutProps {
+    header?: React.ReactNode;
+    footer?: React.ReactNode;
+    children: React.ReactNode;
+    className?: string;
+    mainClassName?: string;
+}
+declare const PageLayout: React.ForwardRefExoticComponent<PageLayoutProps & React.RefAttributes<HTMLDivElement>>;
+
+export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, type Category$1 as Category, CtaSection, type CtaSectionProps, type Feature, FeaturesSection, type FeaturesSectionProps, Footer, type FooterLink, type FooterProps, Header, type HeaderProps, HeroSection, type HeroSectionProps, type ItemDetailsCategory, ItemDetailsDialog, type ItemDetailsDialogProps, type ItemDetailsItem, ItemsSection, type ItemsSectionProps, MobileMenu, type MobileMenuProps, PageLayout, type PageLayoutProps, Sidebar, type SidebarProps };

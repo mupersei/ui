@@ -724,7 +724,7 @@ var LanguageSelector = React5.forwardRef(
           ref,
           variant: "outline",
           size: "sm",
-          className: cn("h-10 flex items-center gap-1", className),
+          className: cn("h-10 flex items-center gap-1 focus-visible:ring-0 focus-visible:ring-offset-0", className),
           children: [
             /* @__PURE__ */ jsx(Globe, { className: "h-4 w-4" }),
             /* @__PURE__ */ jsx("span", { children: currentLanguage?.label || "\uC5B8\uC5B4" })
@@ -1099,7 +1099,33 @@ function ItemsSectionInner({
   );
 }
 var ItemsSection = React5.forwardRef(ItemsSectionInner);
+var PageLayout = React5.forwardRef(
+  ({ header, footer, children, className, mainClassName }, ref) => {
+    return /* @__PURE__ */ jsxs(
+      "div",
+      {
+        ref,
+        className: cn("flex min-h-screen flex-col", className),
+        children: [
+          header,
+          /* @__PURE__ */ jsx(
+            "main",
+            {
+              className: cn(
+                "flex-1 container py-4 md:py-8 px-2 sm:px-4 md:px-6",
+                mainClassName
+              ),
+              children
+            }
+          ),
+          footer
+        ]
+      }
+    );
+  }
+);
+PageLayout.displayName = "PageLayout";
 
-export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, CtaSection, FeaturesSection, Footer, Header, HeroSection, ItemDetailsDialog, ItemsSection, MobileMenu, Sidebar };
+export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, CtaSection, FeaturesSection, Footer, Header, HeroSection, ItemDetailsDialog, ItemsSection, MobileMenu, PageLayout, Sidebar };
 //# sourceMappingURL=index.mjs.map
 //# sourceMappingURL=index.mjs.map

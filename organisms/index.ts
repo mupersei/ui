@@ -36,3 +36,7 @@ export type { ItemDetailsDialogProps, ItemDetailsItem, ItemDetailsCategory } fro
 // ItemsSection
 export { ItemsSection } from './ItemsSection'
 export type { ItemsSectionProps } from './ItemsSection'
+
+// PageLayout
+export { PageLayout } from './PageLayout'
+export type { PageLayoutProps } from './PageLayout'

@@ -414,7 +414,7 @@ var LanguageSelector = React4__namespace.forwardRef(
           ref,
           variant: "outline",
           size: "sm",
-          className: cn("h-10 flex items-center gap-1", className),
+          className: cn("h-10 flex items-center gap-1 focus-visible:ring-0 focus-visible:ring-offset-0", className),
           children: [
             /* @__PURE__ */ jsxRuntime.jsx(lucideReact.Globe, { className: "h-4 w-4" }),
             /* @__PURE__ */ jsxRuntime.jsx("span", { children: currentLanguage?.label || "\uC5B8\uC5B4" })

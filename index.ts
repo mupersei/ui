@@ -97,6 +97,7 @@ export {
   FeaturesSection,
   ItemDetailsDialog,
   ItemsSection,
+  PageLayout,
 } from './organisms'
 
 // Organisms Types
@@ -115,6 +116,7 @@ export type {
   ItemDetailsItem,
   ItemDetailsCategory,
   ItemsSectionProps,
+  PageLayoutProps,
 } from './organisms'
 
 // Utils

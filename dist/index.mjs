@@ -422,7 +422,7 @@ var LanguageSelector = React4.forwardRef(
           ref,
           variant: "outline",
           size: "sm",
-          className: cn("h-10 flex items-center gap-1", className),
+          className: cn("h-10 flex items-center gap-1 focus-visible:ring-0 focus-visible:ring-offset-0", className),
           children: [
             /* @__PURE__ */ jsx(Globe, { className: "h-4 w-4" }),
             /* @__PURE__ */ jsx("span", { children: currentLanguage?.label || "\uC5B8\uC5B4" })
@@ -1226,7 +1226,33 @@ function ItemsSectionInner({
   );
 }
 var ItemsSection = React4.forwardRef(ItemsSectionInner);
+var PageLayout = React4.forwardRef(
+  ({ header, footer, children, className, mainClassName }, ref) => {
+    return /* @__PURE__ */ jsxs(
+      "div",
+      {
+        ref,
+        className: cn("flex min-h-screen flex-col", className),
+        children: [
+          header,
+          /* @__PURE__ */ jsx(
+            "main",
+            {
+              className: cn(
+                "flex-1 container py-4 md:py-8 px-2 sm:px-4 md:px-6",
+                mainClassName
+              ),
+              children
+            }
+          ),
+          footer
+        ]
+      }
+    );
+  }
+);
+PageLayout.displayName = "PageLayout";
 
-export { Badge, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, ChromeExtensionJsonLd, CtaSection, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, FeaturesSection, Footer, Header, HeroSection, Input, ItemCard, ItemDetailsDialog, ItemsSection, LanguageSelector, MobileMenu, ScrollArea, ScrollBar, SearchBar, Separator2 as Separator, Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetOverlay, SheetPortal, SheetTitle, SheetTrigger, Sidebar, ViewToggle, badgeVariants, buttonVariants, cn };
+export { Badge, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, ChromeExtensionJsonLd, CtaSection, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, FeaturesSection, Footer, Header, HeroSection, Input, ItemCard, ItemDetailsDialog, ItemsSection, LanguageSelector, MobileMenu, PageLayout, ScrollArea, ScrollBar, SearchBar, Separator2 as Separator, Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetOverlay, SheetPortal, SheetTitle, SheetTrigger, Sidebar, ViewToggle, badgeVariants, buttonVariants, cn };
 //# sourceMappingURL=index.mjs.map
 //# sourceMappingURL=index.mjs.map
