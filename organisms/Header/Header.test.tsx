@@ -109,6 +109,12 @@ describe('Header', () => {
       expect(header).toHaveClass('sm:flex-row', 'sm:items-center', 'sm:justify-between')
     })
 
+    it('기본 디자인 스타일이 적용되어야 함', () => {
+      render(<Header {...defaultProps} />)
+      const header = screen.getByRole('banner')
+      expect(header).toHaveClass('py-4', 'px-2', 'sm:px-4', 'md:px-6', 'border-b', 'bg-background')
+    })
+
     it('브랜드 이름에 반응형 텍스트 크기가 적용되어야 함', () => {
       render(<Header {...defaultProps} />)
       const brandName = screen.getByRole('heading', { level: 1 })

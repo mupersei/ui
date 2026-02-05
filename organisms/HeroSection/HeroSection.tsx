@@ -43,7 +43,7 @@ const HeroSection = React.forwardRef<HTMLElement, HeroSectionProps>(
       <section
         ref={ref}
         className={cn(
-          'relative py-20 md:py-32 px-4 overflow-hidden',
+          'relative py-20 md:py-32 px-2 sm:px-4 md:px-6 overflow-hidden',
           className
         )}
         aria-label={ariaLabel}

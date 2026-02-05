@@ -41,7 +41,7 @@ const CtaSection = React.forwardRef<HTMLElement, CtaSectionProps>(
       <section
         ref={ref}
         className={cn(
-          'py-20 md:py-28 px-4 bg-primary text-primary-foreground',
+          'py-20 md:py-28 px-2 sm:px-4 md:px-6 bg-primary text-primary-foreground',
           className
         )}
         aria-label={ariaLabel}

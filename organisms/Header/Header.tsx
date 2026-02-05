@@ -41,6 +41,7 @@ const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
         ref={ref}
         className={cn(
           'flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between',
+          'py-4 px-2 sm:px-4 md:px-6 border-b bg-background',
           className
         )}
       >

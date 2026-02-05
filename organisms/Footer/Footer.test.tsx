@@ -83,4 +83,26 @@ describe('Footer', () => {
       expect(screen.getByRole('contentinfo')).toHaveClass('custom-footer')
     })
   })
+
+  describe('반응형 디자인', () => {
+    it('기본 디자인 스타일이 적용되어야 함', () => {
+      render(<Footer />)
+      const footer = screen.getByRole('contentinfo')
+      expect(footer).toHaveClass('border-t', 'py-3', 'bg-background')
+    })
+
+    it('내부 컨테이너에 반응형 패딩이 적용되어야 함', () => {
+      render(<Footer />)
+      const footer = screen.getByRole('contentinfo')
+      const container = footer.firstChild as HTMLElement
+      expect(container).toHaveClass('px-2', 'sm:px-4', 'md:px-6')
+    })
+
+    it('모바일에서 세로 레이아웃, 태블릿 이상에서 가로 레이아웃이어야 함', () => {
+      render(<Footer />)
+      const footer = screen.getByRole('contentinfo')
+      const container = footer.firstChild as HTMLElement
+      expect(container).toHaveClass('flex-col', 'sm:flex-row')
+    })
+  })
 })
