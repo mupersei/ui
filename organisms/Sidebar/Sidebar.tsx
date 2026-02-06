@@ -62,12 +62,12 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
             ))}
           </nav>
 
-          <div className="mt-6 pt-4 border-t">
+          <div className="mt-6 pt-4 border-t space-y-2">
             {onFilterClick && (
               <Button
                 variant="outline"
                 size="sm"
-                className="w-full h-10 mb-2"
+                className="w-full h-10"
                 onClick={onFilterClick}
               >
                 <ListFilter className="h-4 w-4 mr-2" aria-hidden="true" />

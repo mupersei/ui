@@ -88,7 +88,7 @@ describe('Footer', () => {
     it('기본 디자인 스타일이 적용되어야 함', () => {
       render(<Footer />)
       const footer = screen.getByRole('contentinfo')
-      expect(footer).toHaveClass('border-t', 'py-3', 'bg-background')
+      expect(footer).toHaveClass('border-t', 'py-4', 'bg-background')
     })
 
     it('내부 컨테이너에 반응형 패딩이 적용되어야 함', () => {
@@ -103,6 +103,13 @@ describe('Footer', () => {
       const footer = screen.getByRole('contentinfo')
       const container = footer.firstChild as HTMLElement
       expect(container).toHaveClass('flex-col', 'sm:flex-row')
+    })
+
+    it('내부 요소 간격이 적용되어야 함', () => {
+      render(<Footer />)
+      const footer = screen.getByRole('contentinfo')
+      const container = footer.firstChild as HTMLElement
+      expect(container).toHaveClass('gap-2', 'sm:gap-0')
     })
   })
 })

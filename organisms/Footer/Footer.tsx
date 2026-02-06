@@ -38,15 +38,15 @@ const Footer = React.forwardRef<HTMLElement, FooterProps>(
     return (
       <footer
         ref={ref}
-        className={cn('border-t py-3 bg-background', className)}
+        className={cn('border-t py-4 bg-background', className)}
         role="contentinfo"
       >
-        <div className="container flex flex-col sm:flex-row justify-between items-center px-2 sm:px-4 md:px-6">
+        <div className="container flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-0 px-2 sm:px-4 md:px-6">
           <p className="text-xs text-muted-foreground">
             &copy; {currentYear} {brandName}. {copyright}
           </p>
           {links.length > 0 && (
-            <nav className="flex space-x-6 mt-2 sm:mt-0" aria-label={navAriaLabel}>
+            <nav className="flex space-x-6" aria-label={navAriaLabel}>
               {links.map((link) => (
                 <Button
                   key={link.href}
