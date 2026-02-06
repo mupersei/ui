@@ -41,7 +41,7 @@ const Footer = React.forwardRef<HTMLElement, FooterProps>(
         className={cn('border-t py-4 bg-background', className)}
         role="contentinfo"
       >
-        <div className="container flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-0 px-2 sm:px-4 md:px-6">
+        <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-0 px-2 sm:px-4 md:px-6">
           <p className="text-xs text-muted-foreground">
             &copy; {currentYear} {brandName}. {copyright}
           </p>
